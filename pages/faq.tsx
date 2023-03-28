@@ -1,9 +1,11 @@
 import React from 'react'
 import { FaqsType } from 'dh-marvel/components/faqs/faqsData'
 import SimpleAccordion from 'dh-marvel/components/SimpleAccordion'
+import BodySingle from 'dh-marvel/components/layouts/body/single/body-single';
 
 export const getStaticProps = async () => {
-  const res = await fetch("http://localhost:3000/api/faq");
+  // const res = await fetch(`https://${process.env.VERCEL_URL}api/faq`);
+  const res = await fetch(`http://localhost:3000/api/faq`);
   const data: FaqsType[] = await res.json();
 
   return {
@@ -19,7 +21,7 @@ interface Props {
 
 const Faq: React.FC<Props> = ({ data }) => {
   return (
-    <div>
+    <BodySingle title='FAQ'>
       {data.map(faq => {
         return (
           <SimpleAccordion
@@ -30,7 +32,7 @@ const Faq: React.FC<Props> = ({ data }) => {
           />
         )
       })}
-    </div>
+    </BodySingle>
   )
 }
 
