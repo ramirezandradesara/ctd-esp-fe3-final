@@ -12,7 +12,7 @@ export default function ImgMediaCard({ title, image }: { title: string, image: s
             <CardMedia
                 component="img"
                 alt="green iguana"
-                height="495"
+                height="300"
                 image={image}
             />
             <CardContent>

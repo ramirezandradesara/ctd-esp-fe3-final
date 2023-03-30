@@ -4,30 +4,52 @@ import BodySingle from "dh-marvel/components/layouts/body/single/body-single";
 import { getComics } from 'dh-marvel/services/marvel/marvel.service';
 import { useEffect, useState } from 'react';
 import ResponsiveGrid from 'dh-marvel/components/Grid';
+import PaginationOutlined from 'dh-marvel/components/Pagination';
+
+const INITIAL_OFFSET = 0
+const INITIAL_LIMIT = 12
 
 export async function getServerSideProps() {
-
-    // getComics(0, 12).then((response) => {
-    //     return {
-    //         props: { comics: response.data.results },
-    //     };
-    // }
-    // )
-
-    const response = await getComics(0, 12)
-      return {
-        props:  { comics: response.data.results, count: response.data.count, total: response.data.total } ,
-      };
+    const response = await getComics(INITIAL_OFFSET, INITIAL_LIMIT)
+    return {
+        props: {
+            initialComics: response.data.results,
+            limit: response.data.count,
+            total: response.data.total
+        },
+    };
 }
 
-type homeProps = {
-    comics: any;
-    count: number,
+type indexProps = {
+    initialComics: any;
+    limit: number,
     total: number,
 }
 
-const Index: NextPage<any> = ({ comics }) => {
-    console.log("🚀 ~ file: index.tsx:29 ~ comics:", comics)
+const Index: NextPage<indexProps> = ({ initialComics, limit, total }) => {
+    const [comics, setComics] = useState(initialComics)
+    const [page, setPage] = useState(1);
+
+    function handleChange(page: number, event: any) {
+        setPage(event)
+    }
+
+    async function handlePagination() {
+        const response = await getComics((limit * page), limit)
+        const results = await response.json()
+        console.log(results)
+        setComics(results)
+    }
+
+    async function getcomics() {
+        const response = await getComics(0, 12)
+        console.log("🚀 ~ file: index.tsx:45 ~ getcomics ~ response:", response?.data?.results)
+    }
+
+    useEffect(() => {
+        // handlePagination()
+        // getcomics().then(response => response?.data?.results)
+    }, [])
 
     return (
         <>
@@ -38,6 +60,7 @@ const Index: NextPage<any> = ({ comics }) => {
             </Head>
             <BodySingle title={"Welcome!"}>
                 <ResponsiveGrid data={comics} />
+                <PaginationOutlined count={Math.round(total / 12)} page={page} handleChange={handleChange} />
             </BodySingle>
         </>
     )
