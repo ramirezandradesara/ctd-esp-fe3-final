@@ -15,6 +15,7 @@ export default function ResponsiveGrid({ data }: any) {
             <ImgMediaCard
               title={item.title}
               image={item?.thumbnail?.path + "." + item?.thumbnail?.extension}
+              id={item?.id}
             />
           </Grid>
         ))}

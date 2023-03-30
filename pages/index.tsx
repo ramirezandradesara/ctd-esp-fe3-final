@@ -27,6 +27,7 @@ type indexProps = {
 }
 
 const Index: NextPage<indexProps> = ({ initialComics, limit, total }) => {
+    console.log("🚀 ~ file: index.tsx:30 ~ initialComics:", initialComics)
     const [comics, setComics] = useState(initialComics)
     const [page, setPage] = useState(1);
 
@@ -49,6 +50,7 @@ const Index: NextPage<indexProps> = ({ initialComics, limit, total }) => {
     useEffect(() => {
         // handlePagination()
         // getcomics().then(response => response?.data?.results)
+        getcomics() 
     }, [])
 
     return (

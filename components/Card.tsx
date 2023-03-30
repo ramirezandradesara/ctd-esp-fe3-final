@@ -5,8 +5,9 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import Link from 'next/link';
 
-export default function ImgMediaCard({ title, image }: { title: string, image: string }) {
+export default function ImgMediaCard({ title, image, id }: { title: string, image: string, id: number }) {
     return (
         <Card sx={{ maxWidth: 345 }}>
             <CardMedia
@@ -19,14 +20,18 @@ export default function ImgMediaCard({ title, image }: { title: string, image: s
                 <Typography gutterBottom variant="h5" component="div">
                     {title}
                 </Typography>
-                {/* <Typography variant="body2" color="text.secondary">
-                    Lizards are a widespread group of squamate reptiles, with over 6,000
-                    species, ranging across all continents except Antarctica cd
-                </Typography> */}
             </CardContent>
             <CardActions>
-                <Button size="small">Comprar</Button>
-                <Button size="small">Ver detalle</Button>
+                <Link href={'/checkout'}>
+                    <Button size="small">
+                        Comprar
+                    </Button>
+                </Link>
+                <Link href={`/comics/${id}`}>
+                    <Button size="small">
+                        Ver detalle
+                    </Button>
+                </Link>
             </CardActions>
         </Card>
     );
