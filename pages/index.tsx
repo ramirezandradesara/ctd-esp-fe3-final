@@ -6,52 +6,44 @@ import { useEffect, useState } from 'react';
 import ResponsiveGrid from 'dh-marvel/components/Grid';
 import PaginationOutlined from 'dh-marvel/components/Pagination';
 
-const INITIAL_OFFSET = 0
-const INITIAL_LIMIT = 12
+// const INITIAL_OFFSET = 0
+// const INITIAL_LIMIT = 12
 
-export async function getServerSideProps() {
-    const response = await getComics(INITIAL_OFFSET, INITIAL_LIMIT)
-    return {
-        props: {
-            initialComics: response.data.results,
-            limit: response.data.count,
-            total: response.data.total
-        },
-    };
-}
+// export async function getServerSideProps() {
+//     const response = await getComics(INITIAL_OFFSET, INITIAL_LIMIT)
+//     return {
+//         props: {
+//             initialComics: response.data.results,
+//             limit: response.data.count,
+//             total: response.data.total
+//         },
+//     };
+// }
 
-type indexProps = {
-    initialComics: any;
-    limit: number,
-    total: number,
-}
+// type indexProps = {
+//     initialComics: any;
+//     limit: number,
+//     total: number,
+// }
 
-const Index: NextPage<indexProps> = ({ initialComics, limit, total }) => {
-    console.log("🚀 ~ file: index.tsx:30 ~ initialComics:", initialComics)
-    const [comics, setComics] = useState(initialComics)
+// const Index: NextPage<indexProps> = ({ initialComics, total }) => {
+const Index: NextPage = () => {
+    const [comics, setComics] = useState([])
     const [page, setPage] = useState(1);
+    const [total, settotal] = useState(0);
+    const LIMIT = 12
 
-    function handleChange(page: number, event: any) {
-        setPage(event)
-    }
-
-    async function handlePagination() {
-        const response = await getComics((limit * page), limit)
-        const results = await response.json()
-        console.log(results)
-        setComics(results)
-    }
-
-    async function getcomics() {
-        const response = await getComics(0, 12)
-        console.log("🚀 ~ file: index.tsx:45 ~ getcomics ~ response:", response?.data?.results)
-    }
+    const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+        setPage(value);
+    };
 
     useEffect(() => {
-        // handlePagination()
-        // getcomics().then(response => response?.data?.results)
-        getcomics() 
-    }, [])
+        let offset = LIMIT * (page - 1)
+        getComics(offset, LIMIT).then(response => {
+            setComics(response?.data?.results)
+            settotal(response?.data?.total)
+        })
+    }, [page])
 
     return (
         <>
@@ -61,6 +53,7 @@ const Index: NextPage<indexProps> = ({ initialComics, limit, total }) => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <BodySingle title={"Welcome!"}>
+                <PaginationOutlined count={Math.round(total / 12)} page={page} handleChange={handleChange} />
                 <ResponsiveGrid data={comics} />
                 <PaginationOutlined count={Math.round(total / 12)} page={page} handleChange={handleChange} />
             </BodySingle>
