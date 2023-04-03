@@ -16,21 +16,34 @@ export default function SimpleAccordion({ question, answer }: FaqsType) {
           id="panel1a-header"
           sx={{
             margin: '5px'
-          }}
-        >
+          }}>
           <Typography
             sx={{
               fontWeight: '600',
               color: "#305f8f  "
-            }}
-          >{question}</Typography>
+            }}>
+            {question}
+          </Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>
-            {answer}
-          </Typography>
+          {typeof answer === 'string'
+            ? (
+              <Typography>
+                {answer}
+              </Typography>
+            )
+            : <>
+              {answer.map((answer: any) => {
+                <Typography>
+                  {answer.name}
+                </Typography>
+              })}
+            </>
+          }
         </AccordionDetails>
       </Accordion>
     </div>
   );
 }
+
+

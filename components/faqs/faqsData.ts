@@ -1,7 +1,7 @@
 export type FaqsType = {
     id: number,
     question: string,
-    answer: string,
+    answer: any 
 }
 
 export const faqsData: FaqsType[] = [
