@@ -7,7 +7,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import SimpleAccordion from './SimpleAccordion';
-
+import Link from 'next/link';
 export interface MediaCardProps {
     title: string,
     description: string,
@@ -21,44 +21,47 @@ export interface MediaCardProps {
 
 export default function MediaCard({ title, description, image, price, id, oldPrice, stock, characters }: MediaCardProps) {
     return (
-        <Card sx={{ maxWidth: 345 }}>
-            <CardMedia
-                sx={{ height: 300 }}
-                image={image}
-                title={`${title} imagen`}
-            />
-            <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                    {title}
-                </Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ marginBottom: '1rem' }}>
-                    <span style={{ textDecoration: 'line-through' }}>${oldPrice}</span>
-                    <span style={{ marginLeft: '0.5rem' }}>${price}</span>
-                </Typography>
-                <Typography variant="body1" color="text.secondary">
-                    {description === ''
-                        ? "Sin descripción disponible"
-                        : description
+            <Card sx={{ maxWidth: 345 }}>
+                <CardMedia
+                    sx={{ height: 300 }}
+                    image={image}
+                    title={`${title} imagen`}
+                />
+                <CardContent>
+                    <Typography gutterBottom variant="h5" component="div">
+                        {title}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary" sx={{ marginBottom: '1rem' }}>
+                        <span style={{ textDecoration: 'line-through' }}>${oldPrice}</span>
+                        <span style={{ marginLeft: '0.5rem' }}>${price}</span>
+                    </Typography>
+                    <Typography variant="body1" color="text.secondary">
+                        {description === ''
+                            ? "Sin descripción disponible"
+                            : description
+                        }
+                    </Typography>
+                </CardContent>
+                <CardActions>
+                    {stock > 0
+                        ?
+                        <Link href={`/checkout`}>
+                            <Button variant="contained" endIcon={<ShoppingCartOutlinedIcon />}>
+                                Comprar
+                            </Button>
+                        </Link>
+                        :
+                        <Button variant="contained" disabled>
+                            Sin stock disponible
+                        </Button>
                     }
-                </Typography>
-            </CardContent>
-            <CardActions>
-                {stock > 0
-                    ?
-                    <Button variant="contained" endIcon={<ShoppingCartOutlinedIcon />}>
-                        Comprar
-                    </Button>
-                    :
-                    <Button variant="contained" disabled>
-                        Sin stock disponible
-                    </Button>
-                }
-            </CardActions>
-            <SimpleAccordion
-                id={id}
-                question='Personajes en cómic'
-                answer={characters}
-            />
-        </Card>
+                </CardActions>
+                <SimpleAccordion
+                    id={id}
+                    question='Personajes en cómic'
+                    answer={characters}
+                />
+            </Card>
+
     );
 }

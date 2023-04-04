@@ -1,5 +1,6 @@
 import MediaCard from 'dh-marvel/components/CardDetails';
 import BodySingle from 'dh-marvel/components/layouts/body/single/body-single';
+import LayoutGeneral from 'dh-marvel/components/layouts/layout-general';
 import { getCharacterByComic, getComic, getComics } from 'dh-marvel/services/marvel/marvel.service';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import React, { useEffect } from 'react'
@@ -34,18 +35,20 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
 function ComicDetails({ comic, characters }: { comic: any, characters: any }) {
   return (
-    <BodySingle title=' '>
-      <MediaCard
-        title={comic.title}
-        description={comic.description}
-        image={`${comic?.images[0]?.path}.${comic?.images[0]?.extension}`}
-        id={comic.id}
-        price={comic.price}
-        oldPrice={comic.oldPrice}
-        stock={comic.stock}
-        characters={characters}
-      />
-    </BodySingle>
+    <LayoutGeneral>
+      <BodySingle title='Detalle cómic'>
+        <MediaCard
+          title={comic.title}
+          description={comic.description}
+          image={`${comic?.images[0]?.path}.${comic?.images[0]?.extension}`}
+          id={comic.id}
+          price={comic.price}
+          oldPrice={comic.oldPrice}
+          stock={comic.stock}
+          characters={characters}
+        />
+      </BodySingle>
+    </LayoutGeneral>
   )
 }
 

@@ -1,8 +1,11 @@
+import LayoutGeneral from 'dh-marvel/components/layouts/layout-general'
 import React from 'react'
 
 function CharacterDetails() {
   return (
-    <div>CharacterDetails</div>
+    <LayoutGeneral>
+      <div>CharacterDetails</div>
+    </LayoutGeneral>
   )
 }
 

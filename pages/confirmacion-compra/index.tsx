@@ -1,8 +1,11 @@
+import LayoutCheckout from 'dh-marvel/components/layouts/layout-checkout'
 import React from 'react'
 
 function PurchaseConfirmation() {
   return (
-    <div>PurchaseConfirmation</div>
+    <LayoutCheckout>
+
+    </LayoutCheckout>
   )
 }
 
