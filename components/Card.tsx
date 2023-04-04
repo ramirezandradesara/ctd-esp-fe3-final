@@ -12,7 +12,7 @@ export default function ImgMediaCard({ title, image, id }: { title: string, imag
         <Card sx={{ maxWidth: 345 }}>
             <CardMedia
                 component="img"
-                alt="green iguana"
+                title={`${title} imagen`}
                 height="300"
                 image={image}
             />

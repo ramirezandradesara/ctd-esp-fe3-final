@@ -20,13 +20,12 @@ export interface MediaCardProps {
 }
 
 export default function MediaCard({ title, description, image, price, id, oldPrice, stock, characters }: MediaCardProps) {
-    console.log("🚀 ~ file: CardDetails.tsx:23 ~ MediaCard ~ characters:", characters)
     return (
         <Card sx={{ maxWidth: 345 }}>
             <CardMedia
                 sx={{ height: 300 }}
                 image={image}
-                title="green iguana"
+                title={`${title} imagen`}
             />
             <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
@@ -57,7 +56,7 @@ export default function MediaCard({ title, description, image, price, id, oldPri
             </CardActions>
             <SimpleAccordion
                 id={id}
-                question='Characters'
+                question='Personajes en cómic'
                 answer={characters}
             />
         </Card>

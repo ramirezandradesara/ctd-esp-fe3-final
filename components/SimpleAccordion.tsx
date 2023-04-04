@@ -33,11 +33,26 @@ export default function SimpleAccordion({ question, answer }: FaqsType) {
               </Typography>
             )
             : <>
-              {answer.map((answer: any) => {
-                <Typography>
-                  {answer.name}
-                </Typography>
-              })}
+              {answer.length === 0
+                ? (
+                  <Typography>
+                    Información no disponible
+                  </Typography>
+                )
+                : (
+                  <>
+                    {
+                      answer.map((answer: any, index: number) => {
+                        return (
+                          <Typography key={index}>
+                            {answer.name}
+                          </Typography>
+                        )
+                      })
+                    }
+                  </>
+                )
+              }
             </>
           }
         </AccordionDetails>
@@ -45,5 +60,3 @@ export default function SimpleAccordion({ question, answer }: FaqsType) {
     </div>
   );
 }
-
-
