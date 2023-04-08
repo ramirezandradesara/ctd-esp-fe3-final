@@ -32,7 +32,7 @@ function Checkout() {
         >
           <Stack
             direction={{ sm: "column", md: "row-reverse" }}
-            spacing={{ xs: 15, sm: 15, md: 8, xl: 20 }}
+            spacing={{ xs: 5, sm: 8, md: 8, xl: 20 }}
             alignItems={{ xs: "center", sm: "center", md: "self-start" }}
           >
             <Box>

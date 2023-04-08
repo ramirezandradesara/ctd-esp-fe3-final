@@ -58,73 +58,6 @@ export default function HorizontalLinearStepper() {
     setActiveStep(0);
   };
 
-  const defaultValue = {
-    customer: {
-      name: "",
-      lastname: "",
-      email: "",
-      address: {
-        address1: "",
-        address2: null,
-        city: "",
-        state: "",
-        zipCode: "",
-      },
-    },
-    card: {
-      number: "",
-      cvc: "",
-      expDate: "",
-      nameOnCard: "",
-    },
-    order: {
-      name: "",
-      image: "",
-      price: 0,
-    },
-  };
-
-  const [checkoutData, setCheckoutData] = React.useState(defaultValue);
-  const [error, setError] = React.useState(true);
-
-  const handleSubmitCustomerForm = (data: any) => {
-    setCheckoutData({
-      ...checkoutData,
-      customer: { ...data },
-    });
-    setActiveStep(activeStep + 1);
-  };
-
-  const handleSubmitAddressForm = (data: any) => {
-    setCheckoutData({
-      ...checkoutData,
-      customer: {
-        ...checkoutData.customer,
-        address: { ...data },
-      },
-    });
-    setActiveStep(activeStep + 1);
-  };
-
-  const handleSubmitPaymentForm = (data: any) => {
-    setCheckoutData({
-      ...checkoutData,
-      card: {
-        ...data,
-      },
-    });
-
-    setActiveStep(activeStep + 1);
-
-    const dataForm = {
-      ...checkoutData,
-      card: {
-        ...data,
-      },
-    };
-
-  };
-
   const methods = useForm();
 
   return (
@@ -170,24 +103,22 @@ export default function HorizontalLinearStepper() {
             <FormProvider {...methods}>
               {activeStep === 0 &&
                 <FormPersonalData
-                  data={checkoutData.customer}
                   activeStep={activeStep}
-                  handleNext={handleSubmitCustomerForm}
+                  handleNext={handleNext}
                 />}
 
               {activeStep === 1 &&
                 <DirectionData
-                  data={checkoutData.customer.address}
                   activeStep={activeStep}
                   handleBack={handleBack}
-                  handleNext={handleSubmitAddressForm}
+                  handleNext={handleNext}
                 />}
 
               {activeStep === 2 &&
                 <PaymentData
                   activeStep={activeStep}
                   handleBack={handleBack}
-                  handleNext={handleSubmitPaymentForm}
+                  handleNext={handleNext}
                 />}
 
             </FormProvider>

@@ -2,15 +2,14 @@ import * as React from "react";
 import { Box, TextField, Typography } from "@mui/material";
 import { useFieldArray, useForm, useFormContext, useFormState } from "react-hook-form";
 import Input from "./Input";
-import StepperButtons from "./StepperButtons";
+import {StepperButtons} from "./StepperButtons";
 
-export type CustomerDataProps = {
-    data: any;
+export type FormPersonalDataProps = {
     activeStep: number;
     handleNext: (data: any) => void;
 };
 
-export const FormPersonalData: React.FC<CustomerDataProps> = ({ data, activeStep, handleNext }: CustomerDataProps) => {
+export const FormPersonalData: React.FC<FormPersonalDataProps> = ({ activeStep, handleNext }: FormPersonalDataProps) => {
 
     const { register, handleSubmit, formState: { errors }, control } = useFormContext()
 

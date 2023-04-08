@@ -1,18 +1,16 @@
 import * as React from "react";
 import { Box, TextField, Typography } from "@mui/material";
 import { useFieldArray, useForm, useFormContext } from "react-hook-form";
-import { CustomerDataProps } from "./FormPersonalData";
 import Input from "./Input";
-import StepperButtons from "./StepperButtons";
+import { StepperButtons } from "./StepperButtons";
 
-export type DeliveryFormProps = {
-    data: any;
+export type DirectionDataProps = {
     activeStep: number;
     handleNext: (data: any) => void;
     handleBack: () => void;
 };
 
-export const DirectionData: React.FC<DeliveryFormProps> = ({ data, activeStep, handleNext, handleBack }: DeliveryFormProps) => {
+export const DirectionData: React.FC<DirectionDataProps> = ({ activeStep, handleNext, handleBack }: DirectionDataProps) => {
 
     const { register, handleSubmit, formState: { errors }, control } = useFormContext()
 
@@ -20,7 +18,7 @@ export const DirectionData: React.FC<DeliveryFormProps> = ({ data, activeStep, h
         handleNext(data);
         console.log(data);
     };
-    
+
     return (
         <Box>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -36,6 +34,7 @@ export const DirectionData: React.FC<DeliveryFormProps> = ({ data, activeStep, h
                     }}
                 />
                 <Input
+
                     label="Dpto, piso, etc. (opcional)"
                     control={control}
                     name="dpto"
@@ -77,7 +76,7 @@ export const DirectionData: React.FC<DeliveryFormProps> = ({ data, activeStep, h
                     activeStep={activeStep}
                     handleNext={handleSubmit(onSubmit)}
                     handleBack={handleBack}
-                    />
+                />
             </form>
         </Box>
     );

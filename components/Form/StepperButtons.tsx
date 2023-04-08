@@ -1,17 +1,13 @@
 import React, { FC } from "react";
 import { Box, Button } from "@mui/material";
 
-type StepperNavigationProps = {
+type StepperButtonsProps = {
   activeStep: number;
   handleNext: () => void;
   handleBack: () => void;
 };
 
-const StepperNavigation: FC<StepperNavigationProps> = ({
-  activeStep,
-  handleNext,
-  handleBack,
-}: StepperNavigationProps) => {
+ export const StepperButtons: FC<StepperButtonsProps> = ({ activeStep, handleNext, handleBack }: StepperButtonsProps) => {
   return (
     <Box>
       <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
@@ -34,4 +30,3 @@ const StepperNavigation: FC<StepperNavigationProps> = ({
   );
 };
 
-export default StepperNavigation;

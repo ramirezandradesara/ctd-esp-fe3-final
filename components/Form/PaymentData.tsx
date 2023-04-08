@@ -1,22 +1,57 @@
 import * as React from "react";
-import { Box } from "@mui/material";
+import { Box, Snackbar } from "@mui/material";
 import Input from "./Input";
 import { useFormContext } from "react-hook-form";
-import StepperButtons from "./StepperButtons";
+import {StepperButtons} from "./StepperButtons";
+import router from "next/router";
+import handler from "dh-marvel/pages/api/checkout";
 
-export type PaymentFormProps = {
+export type PaymentDataProps = {
     activeStep: number;
     handleNext: (data: any) => void;
     handleBack: () => void;
 };
 
-export const PaymentData: React.FC<PaymentFormProps> = ({ activeStep, handleNext, handleBack }: PaymentFormProps) => {
+export const PaymentData: React.FC<PaymentDataProps> = ({ activeStep, handleNext, handleBack }: PaymentDataProps) => {
 
     const { register, handleSubmit, formState: { errors }, control } = useFormContext()
 
-    const onSubmit = (data: any) => {
+    const onSubmit = async (data: any) => {
         handleNext(data);
         console.log(data);
+
+        const formData = {
+            nombre: data.nombre,
+            apellido: data.apellido,
+            email: data.email,
+
+            direccion: data.direccion,
+            dpto: data.dpto,
+            ciudad: data.ciudad,
+            provincia: data.provincia,
+            codigopostal: data.codigopostal,
+
+            numtarjeta: data.numtarjeta,
+            nombretarjeta: data.nombretarjeta,
+            fechadeexpiración: data.fechadeexpiración,
+            codigodeseguridad: data.codigodeseguridad
+        }
+
+        // await fetch('https://my-marvel-store.vercel.app/api/checkout', {
+        await fetch('http://localhost:3000/api/checkout', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        })
+            .then(function (response) {
+                console.log(response);
+            })
+        // .catch(function (error) {
+        //     console.log(error.status);
+        // })
+
     };
 
     return (
@@ -65,7 +100,7 @@ export const PaymentData: React.FC<PaymentFormProps> = ({ activeStep, handleNext
                     rules={{
                         required: true
                     }}
-                />   
+                />
                 <StepperButtons
                     activeStep={activeStep}
                     handleNext={handleSubmit(onSubmit)}
