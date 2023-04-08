@@ -1,7 +1,10 @@
 import * as React from "react";
 import { Box, TextField, Typography } from "@mui/material";
+import { RecipesFormProps } from "./FormPersonalData";
 
-export default function PaymentData() {
+// export default function PaymentData() {
+export const PaymentData: React.FC<RecipesFormProps> = ({ setActiveStep }) => {
+
     return (
 
         <Box>

@@ -1,4 +1,4 @@
-import MediaCard from 'dh-marvel/components/CardDetails';
+import MediaCard from 'dh-marvel/components/Cards/CardDetails';
 import BodySingle from 'dh-marvel/components/layouts/body/single/body-single';
 import LayoutGeneral from 'dh-marvel/components/layouts/layout-general';
 import { getCharacterByComic, getComic, getComics } from 'dh-marvel/services/marvel/marvel.service';

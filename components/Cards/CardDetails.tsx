@@ -6,7 +6,7 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import SimpleAccordion from './SimpleAccordion';
+import SimpleAccordion from '../SimpleAccordion';
 import Link from 'next/link';
 export interface MediaCardProps {
     title: string,
@@ -45,7 +45,10 @@ export default function MediaCard({ title, description, image, price, id, oldPri
                 <CardActions>
                     {stock > 0
                         ?
-                        <Link href={`/checkout`}>
+                        <Link 
+                        // href={`/checkout`}
+                        href={{ pathname: "/checkout/", query: `comic=${id}` }}
+                        >
                             <Button variant="contained" endIcon={<ShoppingCartOutlinedIcon />}>
                                 Comprar
                             </Button>

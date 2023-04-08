@@ -5,10 +5,10 @@ import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import Form from './Form/FormPersonalData';
-import FormPersonalData from './Form/FormPersonalData';
-import DirectionData from './Form/DirectionData';
-import PaymentData from './Form/PaymentData';
+// import Form from './Form/FormPersonalData';
+import { FormPersonalData } from './Form/FormPersonalData';
+import { DirectionData } from './Form/DirectionData';
+import { PaymentData } from './Form/PaymentData';
 
 const steps = ['Datos Personales', 'Dirección de entrega', 'Datos del pago'];
 
@@ -99,9 +99,9 @@ export default function HorizontalLinearStepper() {
           <React.Fragment>
             {/* <Typography sx={{ mt: 2, mb: 1 }}>Step {activeStep + 1}</Typography> */}
 
-            {activeStep === 0 && <FormPersonalData />}
-            {activeStep === 1 && <DirectionData />}
-            {activeStep === 2 && <PaymentData />}
+            {activeStep === 0 && <FormPersonalData setActiveStep={setActiveStep} />}
+            {activeStep === 1 && <DirectionData setActiveStep={setActiveStep} />}
+            {activeStep === 2 && <PaymentData setActiveStep={setActiveStep} />}
 
             <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
               {/* BACK BUTTON */}

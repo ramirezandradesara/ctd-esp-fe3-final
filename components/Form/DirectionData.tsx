@@ -1,7 +1,18 @@
 import * as React from "react";
 import { Box, TextField, Typography } from "@mui/material";
+import { useFieldArray, useForm } from "react-hook-form";
+import { RecipesFormProps } from "./FormPersonalData";
 
-export default function FormPersonalData() {
+type FormData = {
+    nombre: string
+    curso: string
+    email: string
+    fechaNacimiento: string
+    calificaciones: string
+}
+
+// export default function DirectionData() {
+export const DirectionData: React.FC<RecipesFormProps> = ({ setActiveStep }) => {
     return (
 
         <Box>
