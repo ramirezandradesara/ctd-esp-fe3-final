@@ -45,7 +45,7 @@
     "**/*.ts",
     "**/*.tsx",
     "types.d.ts"
-, "components/Cards/CardDetails.tsx"  ],
+, "components/Cards/CardComic.tsx"  ],
   "exclude": [
     "node_modules"
   ]

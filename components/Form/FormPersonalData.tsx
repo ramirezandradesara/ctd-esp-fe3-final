@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Box, TextField, Typography } from "@mui/material";
-import { useFieldArray, useForm } from "react-hook-form";
+import { useFieldArray, useForm, useFormState } from "react-hook-form";
 
 type FormData = {
     nombre: string
@@ -8,12 +8,19 @@ type FormData = {
     email: string
 }
 
-export type RecipesFormProps = {
+export type setActiveStepProps = {
     setActiveStep: (step: number) => void
 }
 
-// export default function FormPersonalData<RecipesFormProps>({ setActiveStep }) {
-export const FormPersonalData: React.FC<RecipesFormProps> = ({ setActiveStep }) => {
+export type CustomerDataProps = {
+    data: any;
+    activeStep: number;
+    setActiveStep: (step: number) => void
+    setError: (error: boolean) => void
+    handleSubmitCustomerForm: (data: any) => void;
+};
+
+export const FormPersonalData: React.FC<CustomerDataProps> = ({ setActiveStep }) => {
 
     const { register, handleSubmit, formState: { isSubmitSuccessful, errors }, control, reset, getValues } = useForm<FormData>({
         mode: 'onBlur',
@@ -24,9 +31,13 @@ export const FormPersonalData: React.FC<RecipesFormProps> = ({ setActiveStep }) 
         }
     });
 
+
+    React.useEffect(() => {
+
+    }, [])
+
     return (
         <Box>
-            <Typography variant="h6" sx={{ fontWeight: 'bold' }}>Datos personales</Typography>
             <TextField
                 required
                 // error
@@ -38,7 +49,6 @@ export const FormPersonalData: React.FC<RecipesFormProps> = ({ setActiveStep }) 
                 {...register("nombre", { required: true })}
             />
             {errors.nombre && <span>Este campo es requerido</span>}
-            <br />
             <TextField
                 required
                 style={{ width: "100%", margin: "5px" }}
@@ -48,7 +58,6 @@ export const FormPersonalData: React.FC<RecipesFormProps> = ({ setActiveStep }) 
                 {...register("apellido", { required: true })}
             />
             {errors.apellido && <span>Este campo es requerido</span>}
-            <br />
             <TextField
                 required
                 style={{ width: "100%", margin: "5px" }}

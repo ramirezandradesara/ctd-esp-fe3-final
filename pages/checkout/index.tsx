@@ -1,6 +1,6 @@
 import { Box, Grid, Stack } from '@mui/material'
 import CardCheckout from 'dh-marvel/components/Cards/CardCheckout'
-import Stepper from 'dh-marvel/components/Stepper'
+import Stepper from 'dh-marvel/components/Form/Stepper'
 import BodySingle from 'dh-marvel/components/layouts/body/single/body-single'
 import LayoutCheckout from 'dh-marvel/components/layouts/layout-checkout'
 import { getComic } from 'dh-marvel/services/marvel/marvel.service'
@@ -37,7 +37,6 @@ function Checkout() {
           >
             <Box
               sx={{
-                backgroundColor: "#f3f3f3",
                 height: "100%",
                 padding: "30px",
               }}
@@ -60,7 +59,3 @@ function Checkout() {
 }
 
 export default Checkout
-
-function getComicsById(id: number) {
-  throw new Error('Function not implemented.')
-}

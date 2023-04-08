@@ -5,10 +5,9 @@ import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-// import Form from './Form/FormPersonalData';
-import { FormPersonalData } from './Form/FormPersonalData';
-import { DirectionData } from './Form/DirectionData';
-import { PaymentData } from './Form/PaymentData';
+import { FormPersonalData } from './FormPersonalData';
+import { DirectionData } from './DirectionData';
+import { PaymentData } from './PaymentData';
 
 const steps = ['Datos Personales', 'Dirección de entrega', 'Datos del pago'];
 
@@ -16,8 +15,9 @@ export default function HorizontalLinearStepper() {
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set<number>());
 
+
   const isStepOptional = (step: number) => {
-    return step === 1;
+    return step === 4;
   };
 
   const isStepSkipped = (step: number) => {
@@ -58,9 +58,41 @@ export default function HorizontalLinearStepper() {
     setActiveStep(0);
   };
 
+  const defaultValue = {
+    customer: {
+      name: "",
+      lastname: "",
+      email: "",
+    },
+    address: {
+      address1: "",
+      dpto: null,
+      city: "",
+      state: "",
+      zipCode: "",
+    },
+    card: {
+      number: "",
+      cvc: "",
+      expDate: "",
+      nameOnCard: "",
+    },
+  }
+  const [checkoutData, setCheckoutData] = React.useState(defaultValue);
+  const [error, setError] = React.useState(true);
+
+  const handleSubmitCustomerForm = (data: any) => {
+    setCheckoutData({
+      ...checkoutData,
+      customer: { ...data },
+    });
+    setActiveStep(activeStep + 1);
+  };
+
+
   return (
     <Box sx={{ width: '100%' }}>
-      <Stepper activeStep={activeStep}>
+      <Stepper activeStep={activeStep} sx={{ marginBottom: "30px" }}>
         {steps.map((label, index) => {
           const stepProps: { completed?: boolean } = {};
           const labelProps: {
@@ -77,12 +109,10 @@ export default function HorizontalLinearStepper() {
           return (
             <Step key={label} {...stepProps}>
               <StepLabel {...labelProps}>{label}</StepLabel>
-
             </Step>
           );
         })}
       </Stepper>
-
 
       {activeStep === steps.length
         ? (
@@ -97,11 +127,20 @@ export default function HorizontalLinearStepper() {
           </React.Fragment>
         ) : (
           <React.Fragment>
-            {/* <Typography sx={{ mt: 2, mb: 1 }}>Step {activeStep + 1}</Typography> */}
 
-            {activeStep === 0 && <FormPersonalData setActiveStep={setActiveStep} />}
+            <Typography sx={{ mt: 2, mb: 1, fontWeight: 700 }}>Paso {activeStep + 1}: {steps[activeStep]} </Typography>
+
+            {activeStep === 0 && <FormPersonalData
+              data={checkoutData.customer}
+              setActiveStep={setActiveStep}
+              activeStep={activeStep}
+              handleSubmitCustomerForm={handleSubmitCustomerForm}
+              setError={setError}
+            />}
+
             {activeStep === 1 && <DirectionData setActiveStep={setActiveStep} />}
             {activeStep === 2 && <PaymentData setActiveStep={setActiveStep} />}
+
 
             <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
               {/* BACK BUTTON */}
@@ -116,15 +155,11 @@ export default function HorizontalLinearStepper() {
               <Box sx={{ flex: '1 1 auto' }} />
 
               {/* NEXT/FINISH BUTTON */}
-              {/* {isStepOptional(activeStep) && (
-                <Button color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
-                  Skip
-                </Button>
-              )} */}
-              <Button onClick={handleNext}>
+              <Button onClick={handleNext} disabled={error}>
                 {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
               </Button>
             </Box>
+
           </React.Fragment>
         )}
     </Box>

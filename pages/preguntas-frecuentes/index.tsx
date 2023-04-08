@@ -1,6 +1,6 @@
 import React from 'react'
 import { FaqsType } from 'dh-marvel/components/faqs/faqsData'
-import SimpleAccordion from 'dh-marvel/components/SimpleAccordion'
+import SimpleAccordion from 'dh-marvel/components/Accordions/SimpleAccordion'
 import BodySingle from 'dh-marvel/components/layouts/body/single/body-single';
 import LayoutGeneral from 'dh-marvel/components/layouts/layout-general';
 
@@ -15,11 +15,11 @@ export const getStaticProps = async () => {
   };
 };
 
-interface Props {
+interface FaqProps {
   data: FaqsType[];
 }
 
-const Faq: React.FC<Props> = ({ data }) => {
+const Faq: React.FC<FaqProps> = ({ data }) => {
   return (
     <LayoutGeneral>
       <BodySingle title='FAQ'>

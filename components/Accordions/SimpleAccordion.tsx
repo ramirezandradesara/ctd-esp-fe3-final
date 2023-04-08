@@ -6,9 +6,9 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { FaqsType } from 'dh-marvel/components/faqs/faqsData'
 
-export default function SimpleAccordion({ question, answer }: FaqsType) {
+export default function SimpleAccordion({ id, question, answer }: FaqsType) {
   return (
-    <div>
+    <div key={id}>
       <Accordion>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -26,35 +26,9 @@ export default function SimpleAccordion({ question, answer }: FaqsType) {
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
-          {typeof answer === 'string'
-            ? (
-              <Typography>
-                {answer}
-              </Typography>
-            )
-            : <>
-              {answer.length === 0
-                ? (
-                  <Typography>
-                    Información no disponible
-                  </Typography>
-                )
-                : (
-                  <>
-                    {
-                      answer.map((answer: any, index: number) => {
-                        return (
-                          <Typography key={index}>
-                            {answer.name}
-                          </Typography>
-                        )
-                      })
-                    }
-                  </>
-                )
-              }
-            </>
-          }
+          <Typography>
+            {answer}
+          </Typography>
         </AccordionDetails>
       </Accordion>
     </div>

@@ -3,29 +3,34 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-export interface CardCheckoutProps {
-    title: string,
+
+export interface CardCharacterProps {
+    name: string,
+    description: string,
     image: string,
     id: number,
-    price: number,
 }
 
-export default function CardCheckout({ title, image, price, id }: CardCheckoutProps) {
+export default function CardCharacter({ name, description, image, id }: CardCharacterProps) {
     return (
         <Card sx={{ maxWidth: 345 }}>
             <CardMedia
                 sx={{ height: 300 }}
                 image={image}
-                title={`${title} imagen`}
+                title={`${name} imagen`}
             />
             <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
-                    {title}
+                    {name}
                 </Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ marginBottom: '1rem' }}>
-                    <span>${price}</span>
+                <Typography variant="body1" color="text.secondary">
+                    {description === ''
+                        ? "Sin descripción disponible"
+                        : description
+                    }
                 </Typography>
             </CardContent>
         </Card>
+
     );
 }

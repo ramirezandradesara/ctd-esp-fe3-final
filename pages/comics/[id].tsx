@@ -1,9 +1,8 @@
-import MediaCard from 'dh-marvel/components/Cards/CardDetails';
+import CardComic from 'dh-marvel/components/Cards/CardComic';
 import BodySingle from 'dh-marvel/components/layouts/body/single/body-single';
 import LayoutGeneral from 'dh-marvel/components/layouts/layout-general';
 import { getCharacterByComic, getComic, getComics } from 'dh-marvel/services/marvel/marvel.service';
 import { GetStaticPaths, GetStaticProps } from 'next';
-import React, { useEffect } from 'react'
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const response = await getComics()
@@ -37,7 +36,7 @@ function ComicDetails({ comic, characters }: { comic: any, characters: any }) {
   return (
     <LayoutGeneral>
       <BodySingle title='Detalle cómic'>
-        <MediaCard
+        <CardComic
           title={comic.title}
           description={comic.description}
           image={`${comic?.images[0]?.path}.${comic?.images[0]?.extension}`}
