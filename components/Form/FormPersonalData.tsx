@@ -1,72 +1,66 @@
 import * as React from "react";
 import { Box, TextField, Typography } from "@mui/material";
-import { useFieldArray, useForm, useFormState } from "react-hook-form";
-
-type FormData = {
-    nombre: string
-    apellido: string
-    email: string
-}
-
-export type setActiveStepProps = {
-    setActiveStep: (step: number) => void
-}
+import { useFieldArray, useForm, useFormContext, useFormState } from "react-hook-form";
+import Input from "./Input";
+import StepperButtons from "./StepperButtons";
 
 export type CustomerDataProps = {
     data: any;
     activeStep: number;
-    setActiveStep: (step: number) => void
-    setError: (error: boolean) => void
-    handleSubmitCustomerForm: (data: any) => void;
+    handleNext: (data: any) => void;
 };
 
-export const FormPersonalData: React.FC<CustomerDataProps> = ({ setActiveStep }) => {
+export const FormPersonalData: React.FC<CustomerDataProps> = ({ data, activeStep, handleNext }: CustomerDataProps) => {
 
-    const { register, handleSubmit, formState: { isSubmitSuccessful, errors }, control, reset, getValues } = useForm<FormData>({
-        mode: 'onBlur',
-        defaultValues: {
-            nombre: '',
-            apellido: '',
-            email: '',
-        }
-    });
+    const { register, handleSubmit, formState: { errors }, control } = useFormContext()
 
-
-    React.useEffect(() => {
-
-    }, [])
+    const onSubmit = (data: any) => {
+        handleNext(data);
+        console.log(data);
+    };
 
     return (
         <Box>
-            <TextField
-                required
-                // error
-                style={{ width: "100%", margin: "5px" }}
-                type="text"
-                label="Nombre"
-                variant="outlined"
-                // helperText="Este campo es requerido"
-                {...register("nombre", { required: true })}
-            />
-            {errors.nombre && <span>Este campo es requerido</span>}
-            <TextField
-                required
-                style={{ width: "100%", margin: "5px" }}
-                type="text"
-                label="Apellido"
-                variant="outlined"
-                {...register("apellido", { required: true })}
-            />
-            {errors.apellido && <span>Este campo es requerido</span>}
-            <TextField
-                required
-                style={{ width: "100%", margin: "5px" }}
-                type="text"
-                label="Email"
-                variant="outlined"
-                {...register("email", { required: true })}
-            />
-            {errors.email && <span>Este campo es requerido</span>}
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <Input
+                    required
+                    label="Nombre"
+                    control={control}
+                    name="nombre"
+                    error={Boolean(errors.nombre)}
+                    helperText={errors.nombre?.type === 'required' ? 'Este campo es requerido' : ''}
+                    rules={{
+                        required: true
+                    }}
+                />
+                <Input
+                    required
+                    label="Apellido"
+                    control={control}
+                    name="apellido"
+                    error={Boolean(errors.apellido)}
+                    helperText={errors.apellido?.type === 'required' ? 'Este campo es requerido' : ''}
+                    rules={{
+                        required: true
+                    }}
+                />
+                <Input
+                    required
+                    label="Email"
+                    control={control}
+                    name="email"
+                    error={Boolean(errors.email)}
+                    helperText={errors.email?.type === 'required' ? 'Este campo es requerido' : ''}
+                    rules={{
+                        required: true
+                    }}
+                />               
+                <StepperButtons
+                    activeStep={activeStep}
+                    handleNext={handleSubmit(onSubmit)}
+                    handleBack={() => {}}
+                />
+            </form>
         </Box>
     );
 }

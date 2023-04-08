@@ -35,12 +35,7 @@ function Checkout() {
             spacing={{ xs: 15, sm: 15, md: 8, xl: 20 }}
             alignItems={{ xs: "center", sm: "center", md: "self-start" }}
           >
-            <Box
-              sx={{
-                height: "100%",
-                padding: "30px",
-              }}
-            >
+            <Box>
               <CardCheckout
                 title={comicData?.title}
                 image={`${comicData?.images[0]?.path}.${comicData?.images[0]?.extension}`}

@@ -8,13 +8,13 @@ import Typography from '@mui/material/Typography';
 import { FormPersonalData } from './FormPersonalData';
 import { DirectionData } from './DirectionData';
 import { PaymentData } from './PaymentData';
+import { FormProvider, useForm } from 'react-hook-form';
 
 const steps = ['Datos Personales', 'Dirección de entrega', 'Datos del pago'];
 
 export default function HorizontalLinearStepper() {
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set<number>());
-
 
   const isStepOptional = (step: number) => {
     return step === 4;
@@ -63,13 +63,13 @@ export default function HorizontalLinearStepper() {
       name: "",
       lastname: "",
       email: "",
-    },
-    address: {
-      address1: "",
-      dpto: null,
-      city: "",
-      state: "",
-      zipCode: "",
+      address: {
+        address1: "",
+        address2: null,
+        city: "",
+        state: "",
+        zipCode: "",
+      },
     },
     card: {
       number: "",
@@ -77,7 +77,13 @@ export default function HorizontalLinearStepper() {
       expDate: "",
       nameOnCard: "",
     },
-  }
+    order: {
+      name: "",
+      image: "",
+      price: 0,
+    },
+  };
+
   const [checkoutData, setCheckoutData] = React.useState(defaultValue);
   const [error, setError] = React.useState(true);
 
@@ -89,6 +95,37 @@ export default function HorizontalLinearStepper() {
     setActiveStep(activeStep + 1);
   };
 
+  const handleSubmitAddressForm = (data: any) => {
+    setCheckoutData({
+      ...checkoutData,
+      customer: {
+        ...checkoutData.customer,
+        address: { ...data },
+      },
+    });
+    setActiveStep(activeStep + 1);
+  };
+
+  const handleSubmitPaymentForm = (data: any) => {
+    setCheckoutData({
+      ...checkoutData,
+      card: {
+        ...data,
+      },
+    });
+
+    setActiveStep(activeStep + 1);
+
+    const dataForm = {
+      ...checkoutData,
+      card: {
+        ...data,
+      },
+    };
+
+  };
+
+  const methods = useForm();
 
   return (
     <Box sx={{ width: '100%' }}>
@@ -130,36 +167,30 @@ export default function HorizontalLinearStepper() {
 
             <Typography sx={{ mt: 2, mb: 1, fontWeight: 700 }}>Paso {activeStep + 1}: {steps[activeStep]} </Typography>
 
-            {activeStep === 0 && <FormPersonalData
-              data={checkoutData.customer}
-              setActiveStep={setActiveStep}
-              activeStep={activeStep}
-              handleSubmitCustomerForm={handleSubmitCustomerForm}
-              setError={setError}
-            />}
+            <FormProvider {...methods}>
+              {activeStep === 0 &&
+                <FormPersonalData
+                  data={checkoutData.customer}
+                  activeStep={activeStep}
+                  handleNext={handleSubmitCustomerForm}
+                />}
 
-            {activeStep === 1 && <DirectionData setActiveStep={setActiveStep} />}
-            {activeStep === 2 && <PaymentData setActiveStep={setActiveStep} />}
+              {activeStep === 1 &&
+                <DirectionData
+                  data={checkoutData.customer.address}
+                  activeStep={activeStep}
+                  handleBack={handleBack}
+                  handleNext={handleSubmitAddressForm}
+                />}
 
+              {activeStep === 2 &&
+                <PaymentData
+                  activeStep={activeStep}
+                  handleBack={handleBack}
+                  handleNext={handleSubmitPaymentForm}
+                />}
 
-            <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-              {/* BACK BUTTON */}
-              <Button
-                color="inherit"
-                disabled={activeStep === 0}
-                onClick={handleBack}
-                sx={{ mr: 1 }}
-              >
-                Back
-              </Button>
-              <Box sx={{ flex: '1 1 auto' }} />
-
-              {/* NEXT/FINISH BUTTON */}
-              <Button onClick={handleNext} disabled={error}>
-                {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-              </Button>
-            </Box>
-
+            </FormProvider>
           </React.Fragment>
         )}
     </Box>

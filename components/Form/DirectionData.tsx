@@ -1,46 +1,84 @@
 import * as React from "react";
 import { Box, TextField, Typography } from "@mui/material";
-import { useFieldArray, useForm } from "react-hook-form";
-import { setActiveStepProps } from "./FormPersonalData";
+import { useFieldArray, useForm, useFormContext } from "react-hook-form";
+import { CustomerDataProps } from "./FormPersonalData";
+import Input from "./Input";
+import StepperButtons from "./StepperButtons";
 
-type FormData = {
-    nombre: string
-    curso: string
-    email: string
-    fechaNacimiento: string
-    calificaciones: string
-}
+export type DeliveryFormProps = {
+    data: any;
+    activeStep: number;
+    handleNext: (data: any) => void;
+    handleBack: () => void;
+};
 
-export const DirectionData: React.FC<setActiveStepProps> = ({ setActiveStep }) => {
+export const DirectionData: React.FC<DeliveryFormProps> = ({ data, activeStep, handleNext, handleBack }: DeliveryFormProps) => {
+
+    const { register, handleSubmit, formState: { errors }, control } = useFormContext()
+
+    const onSubmit = (data: any) => {
+        handleNext(data);
+        console.log(data);
+    };
+    
     return (
         <Box>
-            <TextField
-                required
-                style={{ width: "100%", margin: "5px" }}
-                type="text"
-                label="Direccion y número"
-                variant="outlined"
-            />
-            <TextField
-                style={{ width: "100%", margin: "5px" }}
-                type="text"
-                label="Departamento, piso, etc."
-                variant="outlined"
-            />
-            <TextField
-                required
-                style={{ width: "100%", margin: "5px" }}
-                type="text"
-                label="Ciudad"
-                variant="outlined"
-            />
-            <TextField
-                required
-                style={{ width: "100%", margin: "5px" }}
-                type="text"
-                label="Provincia"
-                variant="outlined"
-            />
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <Input
+                    required
+                    label="Dirección"
+                    control={control}
+                    name="direccion"
+                    error={Boolean(errors.direccion)}
+                    helperText={errors.direccion?.type === 'required' ? 'Este campo es requerido' : ''}
+                    rules={{
+                        required: true
+                    }}
+                />
+                <Input
+                    label="Dpto, piso, etc. (opcional)"
+                    control={control}
+                    name="dpto"
+                />
+                <Input
+                    required
+                    label="Ciudad"
+                    control={control}
+                    name="ciudad"
+                    error={Boolean(errors.ciudad)}
+                    helperText={errors.ciudad?.type === 'required' ? 'Este campo es requerido' : ''}
+                    rules={{
+                        required: true
+                    }}
+                />
+                <Input
+                    required
+                    label="Provincia"
+                    control={control}
+                    name="provincia"
+                    error={Boolean(errors.provincia)}
+                    helperText={errors.provincia?.type === 'required' ? 'Este campo es requerido' : ''}
+                    rules={{
+                        required: true
+                    }}
+                />
+                <Input
+                    required
+                    label="Código postal"
+                    control={control}
+                    name="codigopostal"
+                    error={Boolean(errors.codigopostal)}
+                    helperText={errors.codigopostal?.type === 'required' ? 'Este campo es requerido' : ''}
+                    rules={{
+                        required: true
+                    }}
+                />
+                <StepperButtons
+                    activeStep={activeStep}
+                    handleNext={handleSubmit(onSubmit)}
+                    handleBack={handleBack}
+                    />
+            </form>
         </Box>
     );
 }
