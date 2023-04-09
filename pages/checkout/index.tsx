@@ -49,7 +49,11 @@ function Checkout() {
                 />
               </Box>
               <Box>
-                <Stepper />
+                <Stepper
+                  title={comicData?.title}
+                  image={`${comicData?.images[0]?.path}.${comicData?.images[0]?.extension}`}
+                  price={comicData?.price}
+                />
               </Box>
             </Stack>
           </Box>

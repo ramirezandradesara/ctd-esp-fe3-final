@@ -3,7 +3,6 @@ import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { FormPersonalData } from './FormPersonalData';
 import { DirectionData } from './DirectionData';
@@ -14,13 +13,17 @@ import router from 'next/router';
 
 const steps = ['Datos Personales', 'Dirección de entrega', 'Datos del pago'];
 
-export default function HorizontalLinearStepper() {
+export interface SteppertProps {
+  title: string,
+  image: string,
+  price: number,
+}
+
+export default function HorizontalLinearStepper({ title, image, price }: SteppertProps) {
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set<number>());
-
-  const [open, setOpen] = React.useState(false);
   const [error, setError] = React.useState("")
-  
+
   // const isStepOptional = (step: number) => {
   //   return step === 4;
   // };
@@ -63,7 +66,24 @@ export default function HorizontalLinearStepper() {
   //   setActiveStep(0);
   // };
 
-  const methods = useForm();
+  const methods = useForm({
+    defaultValues: {
+      nombre: '',
+      apellido: '',
+      email: '',
+
+      direccion: '',
+      dpto: '',
+      ciudad: '',
+      provincia: '',
+      codigopostal: '',
+
+      numtarjeta: '',
+      nombretarjeta: '',
+      codigodeseguridad: '',
+      fechadeexpiración: '',
+    }
+  })
 
   const onSubmit = async (data: any) => {
     const formData = {
@@ -73,7 +93,7 @@ export default function HorizontalLinearStepper() {
         email: data.email,
         address: {
           address1: data.direccion,
-          address2: 'data.dpto',
+          address2: data.dpto,
           city: data.ciudad,
           state: data.provincia,
           zipCode: data.codigopostal,
@@ -86,9 +106,9 @@ export default function HorizontalLinearStepper() {
         nameOnCard: data.nombretarjeta,
       },
       order: {
-        name: 'string',
-        image: 'string',
-        price: 1
+        name: title,
+        image: image,
+        price: price
       }
     }
 
@@ -101,8 +121,6 @@ export default function HorizontalLinearStepper() {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-
         if (data['error']) {
           setError(data['message'])
         } else {
@@ -156,7 +174,6 @@ export default function HorizontalLinearStepper() {
           <React.Fragment>
 
             <Typography sx={{ mt: 2, mb: 1, fontWeight: 700 }}>Paso {activeStep + 1}: {steps[activeStep]} </Typography>
-
             <FormProvider {...methods}>
               {activeStep === 0 &&
                 <FormPersonalData
@@ -181,9 +198,8 @@ export default function HorizontalLinearStepper() {
             </FormProvider>
           </React.Fragment>
         )}
-
       {error !== "" &&
-        <Snackbar open={!open} autoHideDuration={6000}>
+        <Snackbar open={true} autoHideDuration={6000}>
           <Alert severity="error">
             {error}
           </Alert>
