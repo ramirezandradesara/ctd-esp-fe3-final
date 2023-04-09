@@ -11,5 +11,3 @@ describe('CardComic', () => {
         })
     })
 })
-
-// npm run test CardComic.spec.tsx

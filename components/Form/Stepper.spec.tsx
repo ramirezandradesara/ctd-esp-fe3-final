@@ -34,7 +34,7 @@ describe('Stepper.spec.tsx', () => {
 
     describe('when filling form correctly', () => {
 
-        it('should render next form "Dirección de entrega" and "Datos de pago', async () => {
+        it('should render next form and previous form', async () => {
             render(
                 <Stepper />
             )
@@ -43,6 +43,7 @@ describe('Stepper.spec.tsx', () => {
             const lastNameInput = screen.getByRole('textbox', { name: /Apellido */i })
             const emailInput = screen.getByRole('textbox', { name: /Email */i })
             const nextButton = screen.getByText(/siguiente/i);
+            const backButton = screen.getByText(/anterior/i);
 
             await userEvent.type(nameInput, "Sara")
             await userEvent.type(lastNameInput, "Ramírez")
@@ -50,6 +51,11 @@ describe('Stepper.spec.tsx', () => {
             await userEvent.click(nextButton);
 
             await waitFor(() => expect(screen.getByText("Paso 2: Dirección de entrega")).toBeInTheDocument());
+
+            await userEvent.click(backButton);
+
+            await waitFor(() => expect(screen.getByText("Paso 1: Datos Personales")).toBeInTheDocument());
+
         })
     })
 })

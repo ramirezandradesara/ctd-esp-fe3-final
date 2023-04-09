@@ -33,5 +33,3 @@ describe('FaqPage', () => {
         })
     })
 })
-
-// npm run test faqs.spec.tsx

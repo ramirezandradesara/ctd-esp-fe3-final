@@ -30,9 +30,9 @@ describe('PaymentData.spec.tsx', () => {
             )
 
             const cardNumInput = screen.getByRole('textbox', { name: /Número de tarjeta */i })
-            const cardNameInput = screen.getByRole('textbox', { name: /Nombre como aparece en la tarjeta/i})
+            const cardNameInput = screen.getByRole('textbox', { name: /Nombre como aparece en la tarjeta/i })
             const expirationDateInput = screen.getByRole('textbox', { name: /Fecha de expiración */i })
-            const cvvInput = screen.getByRole('textbox', { name: /Código de seguridad */i })
+            const cvvInput = screen.getByLabelText(/Código de seguridad */i)
 
             expect(cardNumInput).toBeInTheDocument();
             expect(cardNameInput).toBeInTheDocument();
@@ -80,9 +80,9 @@ describe('PaymentData.spec.tsx', () => {
             );
 
             const cardNumInput = screen.getByRole<HTMLInputElement>('textbox', { name: /Número de tarjeta */i })
-            const cardNameInput = screen.getByRole<HTMLInputElement>('textbox', { name: /Nombre como aparece en la tarjeta/i})
+            const cardNameInput = screen.getByRole<HTMLInputElement>('textbox', { name: /Nombre como aparece en la tarjeta/i })
             const expirationDateInput = screen.getByRole<HTMLInputElement>('textbox', { name: /Fecha de expiración */i })
-            const cvvInput = screen.getByRole<HTMLInputElement>('textbox', { name: /Código de seguridad */i })
+            const cvvInput = screen.getByLabelText(/Código de seguridad */i)
             const nextButton = screen.getByText(/siguiente/i);
 
             act(() => {
@@ -97,12 +97,28 @@ describe('PaymentData.spec.tsx', () => {
             await waitFor(() => expect(screen.queryByText("El nombre de la tarjeta es requerido")).not.toBeInTheDocument());
             await waitFor(() => expect(screen.queryByText("La fecha de expiración es requerida")).not.toBeInTheDocument());
             await waitFor(() => expect(screen.queryByText("El código de seguridad es requerido")).not.toBeInTheDocument());
+        })
+    })
 
-            // await waitFor(() =>  expect(cardNumInput.value).toBe("4242424242424242") )
-            // await waitFor(() =>  expect(cardNameInput.value).toBe("SARA RAMIREZ") )
-            // await waitFor(() =>  expect(expirationDateInput.value).toBe("11/23") )
-            // await waitFor(() =>  expect(cvvInput.value).toBe("123") )
-   
+    describe('visibility toggle', () => {
+        it("should change password input type", async () => {
+            render(
+                <Wrapper>
+                    <PaymentData
+                        handleNext={() => { }}
+                        activeStep={1}
+                        handleBack={() => { }}
+                    />
+                </Wrapper>
+            );
+
+            const cvvInput = screen.getByLabelText(/Código de seguridad */i)
+            const visibilityButton = screen.getByLabelText("toggle password visibility");
+
+            expect(cvvInput).toHaveAttribute("type", "password");
+            await userEvent.click(visibilityButton)
+
+            expect(cvvInput).toHaveAttribute("type", "text");
         })
     })
 })
