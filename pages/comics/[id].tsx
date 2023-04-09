@@ -3,6 +3,7 @@ import BodySingle from 'dh-marvel/components/layouts/body/single/body-single';
 import LayoutGeneral from 'dh-marvel/components/layouts/layout-general';
 import { getCharacterByComic, getComic, getComics } from 'dh-marvel/services/marvel/marvel.service';
 import { GetStaticPaths, GetStaticProps } from 'next';
+import Head from 'next/head';
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const response = await getComics()
@@ -34,20 +35,26 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
 function ComicDetails({ comic, characters }: { comic: any, characters: any }) {
   return (
-    <LayoutGeneral>
-      <BodySingle title='Detalle cómic'>
-        <CardComic
-          title={comic.title}
-          description={comic.description}
-          image={`${comic?.images[0]?.path}.${comic?.images[0]?.extension}`}
-          id={comic.id}
-          price={comic.price}
-          oldPrice={comic.oldPrice}
-          stock={comic.stock}
-          characters={characters}
-        />
-      </BodySingle>
-    </LayoutGeneral>
+    <>
+      <Head>
+        <title>{comic?.title} | DH MARVEL</title>
+        <meta name="description" content={`${comic?.title}: página detalle de cómic `} />
+      </Head>
+      <LayoutGeneral>
+        <BodySingle title='Detalle cómic'>
+          <CardComic
+            title={comic.title}
+            description={comic.description}
+            image={`${comic?.images[0]?.path}.${comic?.images[0]?.extension}`}
+            id={comic.id}
+            price={comic.price}
+            oldPrice={comic.oldPrice}
+            stock={comic.stock}
+            characters={characters}
+          />
+        </BodySingle>
+      </LayoutGeneral>
+    </>
   )
 }
 

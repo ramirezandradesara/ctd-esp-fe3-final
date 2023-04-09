@@ -2,6 +2,7 @@ import CardCharacter from 'dh-marvel/components/Cards/CardCharacter';
 import LayoutGeneral from 'dh-marvel/components/layouts/layout-general'
 import { getCharacter, getCharacters } from 'dh-marvel/services/marvel/marvel.service';
 import { GetStaticPaths, GetStaticProps } from 'next';
+import Head from 'next/head';
 import React from 'react'
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -31,14 +32,20 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
 function CharacterDetails({ character }: { character: any }) {
   return (
-    <LayoutGeneral>
-      <CardCharacter
-        name={character?.name}
-        description={character?.description}
-        image={`${character?.thumbnail?.path}.${character?.thumbnail?.extension}`}        
-        id={character?.id}
-      />
-    </LayoutGeneral>
+    <>
+      <Head>
+        <title>{character?.name} | DH MARVEL</title>
+        <meta name="description" content={`${character?.name}: página detalle de personaje de cómic`} />
+      </Head>
+      <LayoutGeneral>
+        <CardCharacter
+          name={character?.name}
+          description={character?.description}
+          image={`${character?.thumbnail?.path}.${character?.thumbnail?.extension}`}
+          id={character?.id}
+        />
+      </LayoutGeneral>
+    </>
   )
 }
 

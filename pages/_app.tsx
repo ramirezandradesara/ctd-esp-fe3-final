@@ -7,7 +7,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return <ThemeProvider theme={theme}>
     <CssBaseline />
     {/* <LayoutGeneral> */}
-      <Component {...pageProps} />
+    <Component {...pageProps} />
     {/* </LayoutGeneral> */}
     <style jsx global>{`
               /* Other global styles such as 'html, body' etc... */
