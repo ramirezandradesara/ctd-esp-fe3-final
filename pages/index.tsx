@@ -54,7 +54,7 @@ const Index: NextPage = () => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <LayoutGeneral>
-                <BodySingle title={"Welcome!"}>
+                <BodySingle title={"¡Bienvenidx a Marvel Store!"}>
                     <PaginationOutlined count={Math.round(total / 12)} page={page} handleChange={handleChange} />
                     <ResponsiveGrid data={comics} />
                     <PaginationOutlined count={Math.round(total / 12)} page={page} handleChange={handleChange} />

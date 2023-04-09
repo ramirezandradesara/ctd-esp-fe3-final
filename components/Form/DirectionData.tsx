@@ -16,7 +16,6 @@ export const DirectionData: React.FC<DirectionDataProps> = ({ activeStep, handle
 
     const onSubmit = (data: any) => {
         handleNext(data);
-        console.log(data);
     };
 
     return (
@@ -28,13 +27,12 @@ export const DirectionData: React.FC<DirectionDataProps> = ({ activeStep, handle
                     control={control}
                     name="direccion"
                     error={Boolean(errors.direccion)}
-                    helperText={errors.direccion?.type === 'required' ? 'Este campo es requerido' : ''}
+                    helperText={errors.direccion?.type === 'required' ? 'El dirección es requerido' : ''}
                     rules={{
                         required: true
                     }}
                 />
                 <Input
-
                     label="Dpto, piso, etc. (opcional)"
                     control={control}
                     name="dpto"
@@ -45,7 +43,7 @@ export const DirectionData: React.FC<DirectionDataProps> = ({ activeStep, handle
                     control={control}
                     name="ciudad"
                     error={Boolean(errors.ciudad)}
-                    helperText={errors.ciudad?.type === 'required' ? 'Este campo es requerido' : ''}
+                    helperText={errors.ciudad?.type === 'required' ? 'El ciudad es requerido' : ''}
                     rules={{
                         required: true
                     }}
@@ -56,7 +54,7 @@ export const DirectionData: React.FC<DirectionDataProps> = ({ activeStep, handle
                     control={control}
                     name="provincia"
                     error={Boolean(errors.provincia)}
-                    helperText={errors.provincia?.type === 'required' ? 'Este campo es requerido' : ''}
+                    helperText={errors.provincia?.type === 'required' ? 'El provincia es requerido' : ''}
                     rules={{
                         required: true
                     }}
@@ -67,7 +65,7 @@ export const DirectionData: React.FC<DirectionDataProps> = ({ activeStep, handle
                     control={control}
                     name="codigopostal"
                     error={Boolean(errors.codigopostal)}
-                    helperText={errors.codigopostal?.type === 'required' ? 'Este campo es requerido' : ''}
+                    helperText={errors.codigopostal?.type === 'required' ? 'El código postal es requerido' : ''}
                     rules={{
                         required: true
                     }}

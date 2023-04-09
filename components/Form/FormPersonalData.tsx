@@ -15,7 +15,6 @@ export const FormPersonalData: React.FC<FormPersonalDataProps> = ({ activeStep, 
 
     const onSubmit = (data: any) => {
         handleNext(data);
-        console.log(data);
     };
 
     return (
@@ -27,7 +26,7 @@ export const FormPersonalData: React.FC<FormPersonalDataProps> = ({ activeStep, 
                     control={control}
                     name="nombre"
                     error={Boolean(errors.nombre)}
-                    helperText={errors.nombre?.type === 'required' ? 'Este campo es requerido' : ''}
+                    helperText={errors.nombre?.type === 'required' ? 'El nombre es requerido' : ''}
                     rules={{
                         required: true
                     }}
@@ -38,7 +37,7 @@ export const FormPersonalData: React.FC<FormPersonalDataProps> = ({ activeStep, 
                     control={control}
                     name="apellido"
                     error={Boolean(errors.apellido)}
-                    helperText={errors.apellido?.type === 'required' ? 'Este campo es requerido' : ''}
+                    helperText={errors.apellido?.type === 'required' ? 'El apellido es requerido' : ''}
                     rules={{
                         required: true
                     }}
@@ -49,7 +48,7 @@ export const FormPersonalData: React.FC<FormPersonalDataProps> = ({ activeStep, 
                     control={control}
                     name="email"
                     error={Boolean(errors.email)}
-                    helperText={errors.email?.type === 'required' ? 'Este campo es requerido' : ''}
+                    helperText={errors.email?.type === 'required' ? 'El email es requerido' : ''}
                     rules={{
                         required: true
                     }}
