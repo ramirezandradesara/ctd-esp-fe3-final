@@ -1,5 +1,6 @@
-import { render, screen } from "@testing-library/react";
+import { act, render, screen, waitFor } from "@testing-library/react";
 import Stepper from "./Stepper";
+import userEvent from "@testing-library/user-event";
 
 describe('Stepper.spec.tsx', () => {
     describe('when rendering default', () => {
@@ -30,4 +31,27 @@ describe('Stepper.spec.tsx', () => {
             expect(nextButton).toBeInTheDocument();
         })
     })
+
+    describe('when filling form correctly', () => {
+
+        it('should render next form "Dirección de entrega" and "Datos de pago', async () => {
+            render(
+                <Stepper />
+            )
+
+            const nameInput = screen.getByRole('textbox', { name: /Nombre */i })
+            const lastNameInput = screen.getByRole('textbox', { name: /Apellido */i })
+            const emailInput = screen.getByRole('textbox', { name: /Email */i })
+            const nextButton = screen.getByText(/siguiente/i);
+
+            await userEvent.type(nameInput, "Sara")
+            await userEvent.type(lastNameInput, "Ramírez")
+            await userEvent.type(emailInput, "uwu@gmail.com")
+            await userEvent.click(nextButton);
+
+            await waitFor(() => expect(screen.getByText("Paso 2: Dirección de entrega")).toBeInTheDocument());
+        })
+    })
 })
+
+// npm run test Stepper.spec.tsx

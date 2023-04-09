@@ -22,7 +22,7 @@ interface FaqProps {
 const Faq: React.FC<FaqProps> = ({ data }) => {
   return (
     <LayoutGeneral>
-      <BodySingle title='FAQ'>
+      <BodySingle title='Preguntas frecuentes'>
         {data.map(faq => {
           return (
             <SimpleAccordion
