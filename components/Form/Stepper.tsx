@@ -9,6 +9,8 @@ import { FormPersonalData } from './FormPersonalData';
 import { DirectionData } from './DirectionData';
 import { PaymentData } from './PaymentData';
 import { FormProvider, useForm } from 'react-hook-form';
+import { Alert, Snackbar } from '@mui/material';
+import router from 'next/router';
 
 const steps = ['Datos Personales', 'Dirección de entrega', 'Datos del pago'];
 
@@ -16,6 +18,9 @@ export default function HorizontalLinearStepper() {
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set<number>());
 
+  const [open, setOpen] = React.useState(false);
+  const [error, setError] = React.useState("")
+  
   // const isStepOptional = (step: number) => {
   //   return step === 4;
   // };
@@ -59,6 +64,58 @@ export default function HorizontalLinearStepper() {
   // };
 
   const methods = useForm();
+
+  const onSubmit = async (data: any) => {
+    const formData = {
+      customer: {
+        name: data.nombre,
+        lastname: data.apellido,
+        email: data.email,
+        address: {
+          address1: data.direccion,
+          address2: 'data.dpto',
+          city: data.ciudad,
+          state: data.provincia,
+          zipCode: data.codigopostal,
+        }
+      },
+      card: {
+        number: data.numtarjeta,
+        cvc: data.codigodeseguridad,
+        expDate: data.fechadeexpiración,
+        nameOnCard: data.nombretarjeta,
+      },
+      order: {
+        name: 'string',
+        image: 'string',
+        price: 1
+      }
+    }
+
+    fetch("/api/checkout", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+
+        if (data['error']) {
+          setError(data['message'])
+        } else {
+          localStorage.setItem('purchase-data', JSON.stringify(data))
+          router.push({
+            pathname: "/confirmacion-compra",
+          })
+        }
+      })
+      .catch((error) => {
+        console.error(error)
+      });
+  };
 
   return (
     <Box sx={{ width: '100%' }}>
@@ -119,11 +176,19 @@ export default function HorizontalLinearStepper() {
                   activeStep={activeStep}
                   handleBack={handleBack}
                   handleNext={handleNext}
+                  onSubmit={onSubmit}
                 />}
-
             </FormProvider>
           </React.Fragment>
         )}
+
+      {error !== "" &&
+        <Snackbar open={!open} autoHideDuration={6000}>
+          <Alert severity="error">
+            {error}
+          </Alert>
+        </Snackbar>
+      }
     </Box>
   );
 }

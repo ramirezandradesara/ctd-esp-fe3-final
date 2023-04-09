@@ -1,91 +1,19 @@
 import * as React from "react";
-import { Box, Snackbar } from "@mui/material";
+import { Box } from "@mui/material";
 import Input from "./Input";
 import { useFormContext } from "react-hook-form";
-import {StepperButtons} from "./StepperButtons";
+import { StepperButtons } from "./StepperButtons";
 
 export type PaymentDataProps = {
     activeStep: number;
     handleNext: (data: any) => void;
     handleBack: () => void;
+    onSubmit: (data: any) => void;
 };
 
-export const PaymentData: React.FC<PaymentDataProps> = ({ activeStep, handleNext, handleBack }: PaymentDataProps) => {
+export const PaymentData: React.FC<PaymentDataProps> = ({ activeStep, handleNext, handleBack, onSubmit }: PaymentDataProps) => {
 
     const { register, handleSubmit, formState: { errors }, control } = useFormContext()
-
-    const onSubmit = async (data: any) => {
-        // handleNext(data);
-        // console.log(data);
-
-        const formData = {
-            customer: {
-                name: data.nombre,
-                lastname: data.apellido,
-                email: data.email,
-                address: {
-                    address1: data.direccion,
-                    address2: 'data.dpto',
-                    city: data.ciudad,
-                    state: data.provincia,
-                    zipCode: data.codigopostal,
-                }
-            },
-            card: {
-                number: data.numtarjeta,
-                cvc: data.codigodeseguridad,
-                expDate: data.fechadeexpiración,
-                nameOnCard: data.nombretarjeta,
-            },
-            order: {
-                name: 'string',
-                image: 'string',
-                price: 1
-            }
-        }
-
-        const formData2 = {
-            customer: {
-                name: 'sara',
-                lastname: 'sara',
-                email: 'sara',
-                address: {
-                    address1: 'sara',
-                    address2: 'data.dpto',
-                    city: 'sara',
-                    state: 'sara',
-                    zipCode: 'sara',
-                }
-            },
-            card: {
-                number: '4242424242424242',
-                cvc: 'sara',
-                expDate: 'sara',
-                nameOnCard: 'sara',
-            },
-            order: {
-                name: 'string',
-                image: 'string',
-                price: 1
-            }
-        }
-
-        // await fetch('https://my-marvel-store.vercel.app/api/checkout', {
-        await fetch('/api/checkout', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(formData)
-        })
-            .then(function (response) {
-                console.log(response);
-            })
-        // .catch(function (error) {
-        //     console.log(error.status);
-        // })
-
-    };
 
     return (
         <Box>
