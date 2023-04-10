@@ -1,20 +1,7 @@
 import { act, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { FormPersonalData } from "dh-marvel/components/Form/FormPersonalData";
-import { FormProvider, useForm } from "react-hook-form";
-
-const Wrapper = ({ children }: any) => {
-    // Obtenemos los métodos del formulario mediante useForm
-    const methods = useForm({
-        mode: "all",
-        defaultValues: {
-            nombre: "",
-        },
-    });
-
-    // Envolvemos los "hijos" del componente dentro del FormProvider
-    return <FormProvider {...methods}>{children}</FormProvider>;
-};
+import { Wrapper } from "dh-marvel/test/Wrapper";
 
 describe('FormPersonalData.spec.tsx', () => {
     describe('when rendering default', () => {

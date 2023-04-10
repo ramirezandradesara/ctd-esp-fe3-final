@@ -6,7 +6,7 @@ import { StepperButtons } from "./StepperButtons";
 
 export type PaymentDataProps = {
     activeStep: number;
-    handleNext: (data: any) => void;
+    handleNext: () => void;
     handleBack: () => void;
     onSubmit: (data: any) => void;
 };

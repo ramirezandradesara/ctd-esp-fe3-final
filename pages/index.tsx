@@ -7,32 +7,11 @@ import ResponsiveGrid from 'dh-marvel/components/Grid';
 import PaginationOutlined from 'dh-marvel/components/Pagination';
 import LayoutGeneral from 'dh-marvel/components/layouts/layout-general';
 
-// const INITIAL_OFFSET = 0
-// const INITIAL_LIMIT = 12
-
-// export async function getServerSideProps() {
-//     const response = await getComics(INITIAL_OFFSET, INITIAL_LIMIT)
-//     return {
-//         props: {
-//             initialComics: response.data.results,
-//             limit: response.data.count,
-//             total: response.data.total
-//         },
-//     };
-// }
-
-// type indexProps = {
-//     initialComics: any;
-//     limit: number,
-//     total: number,
-// }
-
-// const Index: NextPage<indexProps> = ({ initialComics, total }) => {
 const Index: NextPage = () => {
     const [comics, setComics] = useState([])
-    const [page, setPage] = useState(1);
-    const [total, settotal] = useState(0);
-    const LIMIT = 12
+    const [page, setPage] = useState<number>(1);
+    const [total, settotal] = useState<number>(0);
+    const LIMIT: number = 12
 
     const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
         setPage(value);

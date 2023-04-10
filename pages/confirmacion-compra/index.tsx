@@ -6,7 +6,6 @@ import router from 'next/router';
 import React, { useEffect } from 'react'
 
 function PurchaseConfirmation() {
-
   const [purchase, setPurchase] = React.useState<CheckoutInput>();
 
   useEffect(() => {
@@ -17,6 +16,7 @@ function PurchaseConfirmation() {
       router.push("/");
     }
   }, [])
+  
   return (
     <>
       <Head>

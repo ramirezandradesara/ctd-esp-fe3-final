@@ -30,11 +30,7 @@ function Checkout() {
       </Head>
       <LayoutCheckout>
         <BodySingle title='Checkout'>
-          <Box
-            sx={{
-              padding: { xs: "20px", sm: "20px" },
-            }}
-          >
+          <Box sx={{ padding: { xs: "20px", sm: "20px" } }}>
             <Stack
               direction={{ sm: "column", md: "row-reverse" }}
               spacing={{ xs: 5, sm: 8, md: 8, xl: 20 }}

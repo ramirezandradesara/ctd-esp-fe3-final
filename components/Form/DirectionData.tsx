@@ -6,7 +6,7 @@ import { StepperButtons } from "./StepperButtons";
 
 export type DirectionDataProps = {
     activeStep: number;
-    handleNext: (data: any) => void;
+    handleNext: () => void;
     handleBack: () => void;
 };
 
@@ -14,13 +14,9 @@ export const DirectionData: React.FC<DirectionDataProps> = ({ activeStep, handle
 
     const { register, handleSubmit, formState: { errors }, control } = useFormContext()
 
-    const onSubmit = (data: any) => {
-        handleNext(data);
-    };
-
     return (
         <Box>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit(handleNext)}>
                 <Input
                     required
                     label="Dirección"
@@ -72,7 +68,7 @@ export const DirectionData: React.FC<DirectionDataProps> = ({ activeStep, handle
                 />
                 <StepperButtons
                     activeStep={activeStep}
-                    handleNext={handleSubmit(onSubmit)}
+                    handleNext={handleSubmit(handleNext)}
                     handleBack={handleBack}
                 />
             </form>

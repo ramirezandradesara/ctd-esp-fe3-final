@@ -1,20 +1,7 @@
 import { act, render, screen, waitFor } from "@testing-library/react";
-import { FormProvider, useForm } from "react-hook-form";
 import { DirectionData } from "./DirectionData";
 import userEvent from "@testing-library/user-event";
-
-const Wrapper = ({ children }: any) => {
-    // Obtenemos los métodos del formulario mediante useForm
-    const methods = useForm({
-        mode: "all",
-        defaultValues: {
-            nombre: "",
-        },
-    });
-
-    // Envolvemos los "hijos" del componente dentro del FormProvider
-    return <FormProvider {...methods}>{children}</FormProvider>;
-};
+import { Wrapper } from "dh-marvel/test/Wrapper";
 
 describe('DirectionData.spec.tsx', () => {
     describe('when rendering default', () => {

@@ -6,20 +6,16 @@ import {StepperButtons} from "./StepperButtons";
 
 export type FormPersonalDataProps = {
     activeStep: number;
-    handleNext: (data: any) => void;
+    handleNext: () => void;
 };
 
 export const FormPersonalData: React.FC<FormPersonalDataProps> = ({ activeStep, handleNext }: FormPersonalDataProps) => {
 
     const { register, handleSubmit, formState: { errors }, control } = useFormContext()
 
-    const onSubmit = (data: any) => {
-        handleNext(data);
-    };
-
     return (
         <Box>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit(handleNext)}>
                 <Input
                     required
                     label="Nombre"
@@ -55,7 +51,7 @@ export const FormPersonalData: React.FC<FormPersonalDataProps> = ({ activeStep, 
                 />               
                 <StepperButtons
                     activeStep={activeStep}
-                    handleNext={handleSubmit(onSubmit)}
+                    handleNext={handleSubmit(handleNext)}
                     handleBack={() => {}}
                 />
             </form>
