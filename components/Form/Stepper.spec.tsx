@@ -7,7 +7,7 @@ describe('Stepper.spec.tsx', () => {
 
         it('should render title steps', () => {
             render(
-                <Stepper />
+                <Stepper title={""} image={""} price={0} />
             )
 
             const step1 = screen.getByText("Datos Personales");
@@ -21,7 +21,7 @@ describe('Stepper.spec.tsx', () => {
 
         it('should render back and next buttons', () => {
             render(
-                <Stepper />
+                <Stepper title={""} image={""} price={0} />
             )
 
             const backButton = screen.getByText(/anterior/i);
@@ -32,18 +32,20 @@ describe('Stepper.spec.tsx', () => {
         })
     })
 
-    describe('when filling form correctly', () => {
-
-        it('should render next form and previous form', async () => {
+    describe('when filling form wrongly', () => {
+        it('should render next and previous form', async () => {
             render(
-                <Stepper />
+                <Stepper title={""} image={""} price={0} />
             )
 
             const nameInput = screen.getByRole('textbox', { name: /Nombre */i })
             const lastNameInput = screen.getByRole('textbox', { name: /Apellido */i })
             const emailInput = screen.getByRole('textbox', { name: /Email */i })
+
             const nextButton = screen.getByText(/siguiente/i);
             const backButton = screen.getByText(/anterior/i);
+
+            expect(backButton).toHaveAttribute("disabled")
 
             await userEvent.type(nameInput, "Sara")
             await userEvent.type(lastNameInput, "Ramírez")
@@ -52,10 +54,24 @@ describe('Stepper.spec.tsx', () => {
 
             await waitFor(() => expect(screen.getByText("Paso 2: Dirección de entrega")).toBeInTheDocument());
 
-            await userEvent.click(backButton);
+            userEvent.click(await screen.findByText(/anterior/i));
 
             await waitFor(() => expect(screen.getByText("Paso 1: Datos Personales")).toBeInTheDocument());
 
+            userEvent.click(await screen.findByText(/siguiente/i));
+
+            await waitFor(() => expect(screen.getByText("Paso 2: Dirección de entrega")).toBeInTheDocument());
+
+            // userEvent.type(await screen.findByRole('textbox', { name: /Dirección */i }), 'Sara');
+            // userEvent.type(await screen.findByRole('textbox', { name: "Dpto, piso, etc. (opcional)" }), 'Sara')
+            // userEvent.type(await screen.findByRole('textbox', { name: /Ciudad */i }), 'Sara');
+            // userEvent.type(await screen.findByRole('textbox', { name: /Provincia */i }), 'Sara');
+            // userEvent.type(await screen.findByRole('textbox', { name: /Código postal */i }), 'Sara');
+
+         
+            // userEvent.click(await screen.findByText(/siguiente/i));
+
+            // await waitFor(() => expect(screen.findByText("Paso 3: Datos del pago")).toBeInTheDocument());
         })
     })
 })

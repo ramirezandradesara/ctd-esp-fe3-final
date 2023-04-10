@@ -25,6 +25,7 @@ describe('PaymentData.spec.tsx', () => {
                         handleNext={() => { }}
                         activeStep={1}
                         handleBack={() => { }}
+                        onSubmit={() => { }}
                     />
                 </Wrapper>
             )
@@ -49,6 +50,7 @@ describe('PaymentData.spec.tsx', () => {
                         handleNext={() => { }}
                         activeStep={1}
                         handleBack={() => { }}
+                        onSubmit={() => { }}
                     />
                 </Wrapper>
             )
@@ -75,6 +77,7 @@ describe('PaymentData.spec.tsx', () => {
                         handleNext={() => { }}
                         activeStep={1}
                         handleBack={() => { }}
+                        onSubmit={() => { }}
                     />
                 </Wrapper>
             );
@@ -108,6 +111,7 @@ describe('PaymentData.spec.tsx', () => {
                         handleNext={() => { }}
                         activeStep={1}
                         handleBack={() => { }}
+                        onSubmit={() => { }}
                     />
                 </Wrapper>
             );
