@@ -46,9 +46,7 @@ export default function CardComic({ title, description, image, price, id, oldPri
             <CardActions>
                 {stock > 0
                     ?
-                    <Link
-                        href={{ pathname: "/checkout/", query: `comic=${id}` }}
-                    >
+                    <Link href={{ pathname: "/checkout/", query: `comic=${id}` }} >
                         <Button variant="contained" endIcon={<ShoppingCartOutlinedIcon />}>
                             Comprar
                         </Button>
