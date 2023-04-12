@@ -22,9 +22,9 @@ export interface CardComicProps {
 
 export default function CardComic({ title, description, image, price, id, oldPrice, stock, characters }: CardComicProps) {
     return (
-        <Card sx={{ maxWidth: 345 }}>
+        <Card sx={{ width: 400  }}>
             <CardMedia
-                sx={{ height: 300 }}
+                sx={{ height: 350 }}
                 image={image}
                 title={`${title} imagen`}
             />

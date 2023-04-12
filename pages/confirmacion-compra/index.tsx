@@ -1,9 +1,12 @@
 import { Box, Card, CardContent, CardMedia, Typography } from '@mui/material'
+import BodySingle from 'dh-marvel/components/layouts/body/single/body-single';
 import LayoutCheckout from 'dh-marvel/components/layouts/layout-checkout'
 import { CheckoutInput } from 'dh-marvel/features/checkout/checkout.types';
 import Head from 'next/head'
 import router from 'next/router';
 import React, { useEffect } from 'react'
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 function PurchaseConfirmation() {
   const [purchase, setPurchase] = React.useState<CheckoutInput>();
@@ -16,44 +19,59 @@ function PurchaseConfirmation() {
       router.push("/");
     }
   }, [])
-  
+
   return (
     <>
       <Head>
         <title>Compra exitosa | DH MARVEL</title>
       </Head>
       <LayoutCheckout>
-        <Card sx={{ maxWidth: 345 }}>
-          <Box
-            sx={{
-              paddingY: "5px",
-              backgroundColor: "#43a14d",
-              color: 'white'
-            }}>
-            <Typography gutterBottom variant="h5" component="div">
-              ¡Qué disfrutes de tu compra!
-            </Typography>
+        <BodySingle >
+          <Box sx={{ padding: { xs: "20px", sm: "20px" } }} display={'flex'} justifyContent={'center'} alignItems={'center'} flexDirection={'column'}>
+            <Box
+              sx={{
+                marginBottom: "5px",
+                backgroundColor: "#43a14d",
+                color: 'white',
+                paddingLeft: '50px',
+                paddingRight: '50px',
+                borderRadius: "10px",
+                minHeight:'50px',
+                display: 'flex',
+                alignItems: "center",
+                justifyContent: "center"
+              }}>
+              <Typography gutterBottom variant="h5" component="div" textAlign={'center'} display={'flex'} justifyContent={'center'} alignItems={'center'}>
+                <CheckCircleIcon sx={{ marginRight: '10px', fontSize: '30px' }} />
+                ¡Qué disfrutes de tu compra!
+              </Typography>
+            </Box>
+            <Card sx={{ maxWidth: 345 }} >
+              <CardMedia
+                sx={{ height: 300 }}
+                image={purchase?.order?.image}
+                title={purchase?.order?.name}
+              />
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="div">
+                  {purchase?.order?.name}
+                </Typography>
+                <Typography variant="body1" color="text.secondary">
+                  Nombre y apellido: {purchase?.customer?.name} {purchase?.customer?.lastname}
+                </Typography>
+                <Typography variant="body1" color="text.secondary">
+                  Email: {purchase?.customer?.email}
+                </Typography>
+                <Typography variant="body1" color="text.secondary">
+                  Dirección de entrega: {purchase?.customer?.address?.address1} {purchase?.customer?.address?.address2}
+                </Typography>
+                <Typography variant="body1" color="text.secondary">
+                  Pagás ${purchase?.order?.price}
+                </Typography>
+              </CardContent>
+            </Card>
           </Box>
-          <CardMedia
-            sx={{ height: 300 }}
-            image={purchase?.order?.image}
-            title={purchase?.order?.name}
-          />
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
-              {purchase?.order?.name}
-            </Typography>
-            <Typography variant="body1" color="text.secondary">
-              Nombre y apellido: {purchase?.customer?.name} {purchase?.customer?.lastname}
-            </Typography>
-            <Typography variant="body1" color="text.secondary">
-              Dirección de entrega: {purchase?.customer?.address?.address1} {purchase?.customer?.address?.address2}
-            </Typography>
-            <Typography variant="body1" color="text.secondary">
-              Pagás ${purchase?.order?.price}
-            </Typography>
-          </CardContent>
-        </Card>
+        </BodySingle>
       </LayoutCheckout>
     </>
   )

@@ -15,7 +15,7 @@ export interface CardHomeProps {
 
 export default function CardHome({ title, image, id }: CardHomeProps) {
     return (
-        <Card sx={{ maxWidth: 345 }}>
+        <Card sx={{ minHeight: '490px' }}>
             <CardMedia
                 component="img"
                 title={`${title} imagen`}

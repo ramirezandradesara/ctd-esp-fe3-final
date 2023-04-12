@@ -1,3 +1,4 @@
+import { Box } from '@mui/material';
 import CardCharacter from 'dh-marvel/components/Cards/CardCharacter';
 import LayoutGeneral from 'dh-marvel/components/layouts/layout-general'
 import { getCharacter, getCharacters } from 'dh-marvel/services/marvel/marvel.service';
@@ -38,12 +39,14 @@ function CharacterDetails({ character }: { character: any }) {
         <meta name="description" content={`${character?.name}: página detalle de personaje de cómic`} />
       </Head>
       <LayoutGeneral>
-        <CardCharacter
-          name={character?.name}
-          description={character?.description}
-          image={`${character?.thumbnail?.path}.${character?.thumbnail?.extension}`}
-          id={character?.id}
-        />
+        <Box sx={{ margin: '1rem', width: '400' }} >
+          <CardCharacter
+            name={character?.name}
+            description={character?.description}
+            image={`${character?.thumbnail?.path}.${character?.thumbnail?.extension}`}
+            id={character?.id}
+          />
+        </Box >
       </LayoutGeneral>
     </>
   )

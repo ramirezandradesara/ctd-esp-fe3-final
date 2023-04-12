@@ -1,3 +1,4 @@
+import { Box } from '@mui/material';
 import CardComic from 'dh-marvel/components/Cards/CardComic';
 import BodySingle from 'dh-marvel/components/layouts/body/single/body-single';
 import LayoutGeneral from 'dh-marvel/components/layouts/layout-general';
@@ -41,18 +42,20 @@ function ComicDetails({ comic, characters }: { comic: any, characters: any }) {
         <meta name="description" content={`${comic?.title}: página detalle de cómic `} />
       </Head>
       <LayoutGeneral>
-        <BodySingle title='Detalle cómic'>
-          <CardComic
-            title={comic.title}
-            description={comic.description}
-            image={`${comic?.images[0]?.path}.${comic?.images[0]?.extension}`}
-            id={comic.id}
-            price={comic.price}
-            oldPrice={comic.oldPrice}
-            stock={comic.stock}
-            characters={characters}
-          />
-        </BodySingle>
+        <Box sx={{ marginBottom: '1rem' }}>
+          <BodySingle title='Detalle cómic'>
+            <CardComic
+              title={comic.title}
+              description={comic.description}
+              image={`${comic?.images[0]?.path}.${comic?.images[0]?.extension}`}
+              id={comic.id}
+              price={comic.price}
+              oldPrice={comic.oldPrice}
+              stock={comic.stock}
+              characters={characters}
+            />
+          </BodySingle>
+        </Box>
       </LayoutGeneral>
     </>
   )

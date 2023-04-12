@@ -12,7 +12,7 @@ export interface CardCheckoutProps {
 
 export default function CardCheckout({ title, image, price, id }: CardCheckoutProps) {
     return (
-        <Card sx={{ maxWidth: 345 }}>
+        <Card sx={{ width: 350 }}>
             <CardMedia
                 sx={{ height: 300 }}
                 image={image}

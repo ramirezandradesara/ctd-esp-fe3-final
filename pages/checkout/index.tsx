@@ -30,27 +30,23 @@ function Checkout() {
       </Head>
       <LayoutCheckout>
         <BodySingle title='Checkout'>
-          <Box sx={{ padding: { xs: "20px", sm: "20px" } }}>
+          <Box sx={{ padding: { xs: "20px", sm: "20px" } }} display={'flex'} justifyContent={'center'}>
             <Stack
               direction={{ sm: "column", md: "row-reverse" }}
               spacing={{ xs: 5, sm: 8, md: 8, xl: 20 }}
-              alignItems={{ xs: "center", sm: "center", md: "self-start" }}
+              alignItems={'center'}
             >
-              <Box>
-                <CardCheckout
-                  title={comicData?.title}
-                  image={`${comicData?.images[0]?.path}.${comicData?.images[0]?.extension}`}
-                  price={comicData?.price}
-                  id={comicData?.id}
-                />
-              </Box>
-              <Box>
-                <Stepper
-                  title={comicData?.title}
-                  image={`${comicData?.images[0]?.path}.${comicData?.images[0]?.extension}`}
-                  price={comicData?.price}
-                />
-              </Box>
+              <CardCheckout
+                title={comicData?.title}
+                image={`${comicData?.images[0]?.path}.${comicData?.images[0]?.extension}`}
+                price={comicData?.price}
+                id={comicData?.id}
+              />
+              <Stepper
+                title={comicData?.title}
+                image={`${comicData?.images[0]?.path}.${comicData?.images[0]?.extension}`}
+                price={comicData?.price}
+              />
             </Stack>
           </Box>
         </BodySingle>
