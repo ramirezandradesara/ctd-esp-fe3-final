@@ -45,6 +45,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<Data>)
             return
         }
         if (body.card.number === validCard) {
+            res.setHeader("set-cookie", `Access=true; path=/; samesite=lax; httponly`)
             res.status(200).json({data: body});
             return
         }

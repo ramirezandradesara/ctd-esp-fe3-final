@@ -5,14 +5,13 @@ import { CheckoutInput } from 'dh-marvel/features/checkout/checkout.types';
 import Head from 'next/head'
 import router from 'next/router';
 import React, { useEffect } from 'react'
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 function PurchaseConfirmation() {
   const [purchase, setPurchase] = React.useState<CheckoutInput>();
 
   useEffect(() => {
-    const item = localStorage.getItem('purchase-data')
+    const item = localStorage.getItem('purchase-data') ? localStorage.getItem('purchase-data') : null
     if (item !== null) {
       setPurchase(JSON.parse(item).data);
     } else {
@@ -36,7 +35,7 @@ function PurchaseConfirmation() {
                 paddingLeft: '50px',
                 paddingRight: '50px',
                 borderRadius: "10px",
-                minHeight:'50px',
+                minHeight: '50px',
                 display: 'flex',
                 alignItems: "center",
                 justifyContent: "center"
