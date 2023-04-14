@@ -27,7 +27,6 @@ type indexProps = {
 }
 
 const Index: NextPage<indexProps> = ({ initialComics, initialTotal }) => {
-    // const Index: NextPage = () => {
     const [comics, setComics] = useState(initialComics)
     const [page, setPage] = useState(1);
     const [total, settotal] = useState(initialTotal);
