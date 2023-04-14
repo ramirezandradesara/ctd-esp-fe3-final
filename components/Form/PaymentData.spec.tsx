@@ -76,17 +76,17 @@ describe('PaymentData.spec.tsx', () => {
             const nextButton = screen.getByText(/siguiente/i);
 
             act(() => {
-                userEvent.type(cardNumInput, "4242424242424242")
+                userEvent.type(cardNumInput, "42424242 4242 4242")
                 userEvent.type(cardNameInput, "SARA RAMIREZ")
                 userEvent.type(expirationDateInput, "11/23")
                 userEvent.type(cvvInput, "123")
                 userEvent.click(nextButton);
             })
 
-            await waitFor(() => expect(screen.queryByText("El número de la tarjeta es requerido")).not.toBeInTheDocument());
-            await waitFor(() => expect(screen.queryByText("El nombre de la tarjeta es requerido")).not.toBeInTheDocument());
-            await waitFor(() => expect(screen.queryByText("La fecha de expiración es requerida")).not.toBeInTheDocument());
-            await waitFor(() => expect(screen.queryByText("El código de seguridad es requerido")).not.toBeInTheDocument());
+            expect(screen.queryByText("El número de la tarjeta es requerido")).not.toBeInTheDocument()
+            expect(screen.queryByText("El nombre de la tarjeta es requerido")).not.toBeInTheDocument()
+            expect(screen.queryByText("La fecha de expiración es requerida")).not.toBeInTheDocument()
+            expect(screen.queryByText("El código de seguridad es requerido")).not.toBeInTheDocument()
         })
     })
 

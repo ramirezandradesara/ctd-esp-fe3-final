@@ -7,7 +7,7 @@ type StepperButtonsProps = {
   handleBack: () => void;
 };
 
- export const StepperButtons: FC<StepperButtonsProps> = ({ activeStep, handleNext, handleBack }: StepperButtonsProps) => {
+export const StepperButtons: FC<StepperButtonsProps> = ({ activeStep, handleNext, handleBack }: StepperButtonsProps) => {
   return (
     <Box>
       <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>

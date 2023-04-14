@@ -22,7 +22,6 @@ export interface SteppertProps {
 
 export default function HorizontalLinearStepper({ title, image, price }: SteppertProps) {
   const [activeStep, setActiveStep] = React.useState<number>(0);
-  const [skipped, setSkipped] = React.useState(new Set<number>());
   const [error, setError] = React.useState<string>("")
 
   const handleNext = () => {
@@ -141,7 +140,6 @@ export default function HorizontalLinearStepper({ title, image, price }: Stepper
             onSubmit={onSubmit}
           />}
       </FormProvider>
-
       {error !== "" &&
         <Snackbar open={true} autoHideDuration={6000}>
           <Alert severity="error">

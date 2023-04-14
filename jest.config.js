@@ -40,7 +40,7 @@ const customJestConfig = {
             lines: 50,
             statements: 50
         },
-        "./services/checkout": {
+        "./components/Form/Stepper": {
             branches: 90,
             functions: 90,
             lines: 90,
