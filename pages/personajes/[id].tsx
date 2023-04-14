@@ -1,5 +1,6 @@
 import { Box } from '@mui/material';
 import CardCharacter from 'dh-marvel/components/Cards/CardCharacter';
+import BodySingle from 'dh-marvel/components/layouts/body/single/body-single';
 import LayoutGeneral from 'dh-marvel/components/layouts/layout-general'
 import { getCharacter, getCharacters } from 'dh-marvel/services/marvel/marvel.service';
 import { GetStaticPaths, GetStaticProps } from 'next';
@@ -40,12 +41,14 @@ function CharacterDetails({ character }: { character: any }) {
       </Head>
       <LayoutGeneral>
         <Box sx={{ margin: '1rem', width: '400' }} >
-          <CardCharacter
-            name={character?.name}
-            description={character?.description}
-            image={`${character?.thumbnail?.path}.${character?.thumbnail?.extension}`}
-            id={character?.id}
-          />
+          <BodySingle title='Detalle personaje'>
+            <CardCharacter
+              name={character?.name}
+              description={character?.description}
+              image={`${character?.thumbnail?.path}.${character?.thumbnail?.extension}`}
+              id={character?.id}
+            />
+          </BodySingle>
         </Box >
       </LayoutGeneral>
     </>

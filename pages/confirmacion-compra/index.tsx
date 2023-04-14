@@ -15,8 +15,6 @@ function PurchaseConfirmation() {
     const item = localStorage.getItem('purchase-data')
     if (item !== null) {
       setPurchase(JSON.parse(item).data);
-    } else {
-      router.push("/");
     }
   }, [])
 
@@ -36,7 +34,7 @@ function PurchaseConfirmation() {
                 paddingLeft: '50px',
                 paddingRight: '50px',
                 borderRadius: "10px",
-                minHeight:'50px',
+                minHeight: '50px',
                 display: 'flex',
                 alignItems: "center",
                 justifyContent: "center"

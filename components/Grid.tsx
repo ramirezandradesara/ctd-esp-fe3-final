@@ -4,7 +4,6 @@ import Grid from '@mui/material/Grid';
 import CardHome from 'dh-marvel/components/Cards/CardHome';
 
 export default function ResponsiveGrid({ data }: any) {
-
   return (
     <Box sx={{ flexGrow: 1 }} >
       <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
