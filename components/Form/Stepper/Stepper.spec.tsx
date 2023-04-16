@@ -1,5 +1,5 @@
 import { act, render, screen, waitFor } from "@testing-library/react";
-import Stepper from "./Stepper";
+import Stepper from "../Stepper";
 import userEvent from "@testing-library/user-event";
 import { useRouter } from "next/router";
 

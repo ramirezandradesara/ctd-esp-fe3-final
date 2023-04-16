@@ -28,11 +28,9 @@ export default function CardHome({ title, image, id }: CardHomeProps) {
                 </Typography>
             </CardContent>
             <CardActions>
-                <Link href={'/checkout'}>
-                    <Button size="small">
+                    <Button size="small" disabled>
                         Comprar
                     </Button>
-                </Link>
                 <Link href={`/comics/${id}`}>
                     <Button size="small">
                         Ver detalle

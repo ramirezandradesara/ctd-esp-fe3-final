@@ -1,32 +1,50 @@
 import * as React from "react";
-import { Box, TextField, Typography } from "@mui/material";
-import { useFieldArray, useForm, useFormContext } from "react-hook-form";
-import Input from "./Input";
-import { StepperButtons } from "./StepperButtons";
+import { Box } from "@mui/material";
+import { useForm} from "react-hook-form";
+import Input from "../Input";
+import { StepperButtons } from "../StepperButtons";
+import { DirectionDataSchema } from "../schema.form";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 export type DirectionDataProps = {
     activeStep: number;
     handleNext: () => void;
     handleBack: () => void;
+    setFormData: (data: any) => void;
+    formData: any;
 };
 
-export const DirectionData: React.FC<DirectionDataProps> = ({ activeStep, handleNext, handleBack }: DirectionDataProps) => {
+export const DirectionData: React.FC<DirectionDataProps> = ({ activeStep, handleNext, handleBack, formData, setFormData }: DirectionDataProps) => {
 
-    const { register, handleSubmit, formState: { errors }, control } = useFormContext()
+    const { handleSubmit, formState: { errors }, control } = useForm({
+        defaultValues: {
+            ...formData
+        },
+        resolver: yupResolver(DirectionDataSchema),
+    })
+
+    const onSubmit = (data: any) => {
+        setFormData({
+            ...formData,
+            direccion: data.direccion,
+            dpto: data.dpto,
+            ciudad: data.ciudad,
+            provincia: data.provincia,
+            codigopostal: data.codigopostal,
+        })
+        handleNext();
+    };
 
     return (
         <Box>
-            <form onSubmit={handleSubmit(handleNext)}>
+            <form onSubmit={handleSubmit(onSubmit)}>
                 <Input
                     required
                     label="Dirección"
                     control={control}
                     name="direccion"
                     error={Boolean(errors.direccion)}
-                    helperText={errors.direccion?.type === 'required' ? 'El dirección es requerido' : ''}
-                    rules={{
-                        required: true
-                    }}
+                    helperText={`${errors.direccion?.message || ""}`}
                 />
                 <Input
                     label="Dpto, piso, etc. (opcional)"
@@ -39,10 +57,7 @@ export const DirectionData: React.FC<DirectionDataProps> = ({ activeStep, handle
                     control={control}
                     name="ciudad"
                     error={Boolean(errors.ciudad)}
-                    helperText={errors.ciudad?.type === 'required' ? 'El ciudad es requerido' : ''}
-                    rules={{
-                        required: true
-                    }}
+                    helperText={`${errors.ciudad?.message || ""}`}
                 />
                 <Input
                     required
@@ -50,10 +65,7 @@ export const DirectionData: React.FC<DirectionDataProps> = ({ activeStep, handle
                     control={control}
                     name="provincia"
                     error={Boolean(errors.provincia)}
-                    helperText={errors.provincia?.type === 'required' ? 'El provincia es requerido' : ''}
-                    rules={{
-                        required: true
-                    }}
+                    helperText={`${errors.provincia?.message || ""}`}
                 />
                 <Input
                     required
@@ -61,14 +73,11 @@ export const DirectionData: React.FC<DirectionDataProps> = ({ activeStep, handle
                     control={control}
                     name="codigopostal"
                     error={Boolean(errors.codigopostal)}
-                    helperText={errors.codigopostal?.type === 'required' ? 'El código postal es requerido' : ''}
-                    rules={{
-                        required: true
-                    }}
+                    helperText={`${errors.codigopostal?.message || ""}`}
                 />
                 <StepperButtons
                     activeStep={activeStep}
-                    handleNext={handleSubmit(handleNext)}
+                    handleNext={handleSubmit(onSubmit)}
                     handleBack={handleBack}
                 />
             </form>

@@ -1,19 +1,27 @@
 import * as React from "react";
 import { Box } from "@mui/material";
-import Input from "./Input";
-import { useFormContext } from "react-hook-form";
-import { StepperButtons } from "./StepperButtons";
+import Input from "../Input";
+import { useForm, useFormContext } from "react-hook-form";
+import { StepperButtons } from "../StepperButtons";
+import { PaymentDataSchema } from "../schema.form";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 export type PaymentDataProps = {
     activeStep: number;
     handleNext: () => void;
     handleBack: () => void;
     onSubmit: (data: any) => void;
+    formData: any;
 };
 
-export const PaymentData: React.FC<PaymentDataProps> = ({ activeStep, handleNext, handleBack, onSubmit }: PaymentDataProps) => {
+export const PaymentData: React.FC<PaymentDataProps> = ({ activeStep, handleNext, handleBack, onSubmit, formData }: PaymentDataProps) => {
 
-    const { register, handleSubmit, formState: { errors }, control } = useFormContext()
+    const { handleSubmit, formState: { errors }, control, } = useForm({
+        defaultValues: {
+            ...formData
+        },
+        resolver: yupResolver(PaymentDataSchema),
+    })
 
     return (
         <Box>
@@ -24,10 +32,7 @@ export const PaymentData: React.FC<PaymentDataProps> = ({ activeStep, handleNext
                     control={control}
                     name="numtarjeta"
                     error={Boolean(errors.numtarjeta)}
-                    helperText={errors.numtarjeta?.type === 'required' ? 'El número de la tarjeta es requerido' : ''}
-                    rules={{
-                        required: true
-                    }}
+                    helperText={`${errors.numtarjeta?.message || ""}`}
                 />
                 <Input
                     required
@@ -35,10 +40,7 @@ export const PaymentData: React.FC<PaymentDataProps> = ({ activeStep, handleNext
                     control={control}
                     name="nombretarjeta"
                     error={Boolean(errors.nombretarjeta)}
-                    helperText={errors.nombretarjeta?.type === 'required' ? 'El nombre de la tarjeta es requerido' : ''}
-                    rules={{
-                        required: true
-                    }}
+                    helperText={`${errors.nombretarjeta?.message || ""}`}
                 />
                 <Input
                     required
@@ -46,10 +48,7 @@ export const PaymentData: React.FC<PaymentDataProps> = ({ activeStep, handleNext
                     control={control}
                     name="fechadeexpiración"
                     error={Boolean(errors.fechadeexpiración)}
-                    helperText={errors.fechadeexpiración?.type === 'required' ? 'La fecha de expiración es requerida' : ''}
-                    rules={{
-                        required: true
-                    }}
+                    helperText={`${errors.fechadeexpiración?.message || ""}`}
                 />
                 <Input
                     required
@@ -57,10 +56,7 @@ export const PaymentData: React.FC<PaymentDataProps> = ({ activeStep, handleNext
                     control={control}
                     name="codigodeseguridad"
                     error={Boolean(errors.codigodeseguridad)}
-                    helperText={errors.codigodeseguridad?.type === 'required' ? 'El código de seguridad es requerido' : ''}
-                    rules={{
-                        required: true
-                    }}
+                    helperText={`${errors.codigodeseguridad?.message || ""}`}
                 />
                 <StepperButtons
                     activeStep={activeStep}

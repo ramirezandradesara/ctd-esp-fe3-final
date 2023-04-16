@@ -4,12 +4,13 @@ import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import Typography from '@mui/material/Typography';
-import { FormPersonalData } from './FormPersonalData';
-import { DirectionData } from './DirectionData';
-import { PaymentData } from './PaymentData';
+import { FormPersonalData } from './FormPersonalData/FormPersonalData';
+import { DirectionData } from './DirectionData/DirectionData';
+import { PaymentData } from './PaymentData/PaymentData';
 import { FormProvider, useForm } from 'react-hook-form';
 import { Alert, Snackbar } from '@mui/material';
 import router from 'next/router';
+import { yupResolver } from "@hookform/resolvers/yup";
 import { FormData } from 'dh-marvel/features/checkout/form.types';
 
 const steps = ['Datos Personales', 'Dirección de entrega', 'Datos del pago'];
@@ -23,6 +24,22 @@ export interface SteppertProps {
 export default function HorizontalLinearStepper({ title, image, price }: SteppertProps) {
   const [activeStep, setActiveStep] = React.useState<number>(0);
   const [error, setError] = React.useState<string>("")
+  const [formData, setFormData] = React.useState({
+    nombre: '',
+    apellido: '',
+    email: '',
+
+    direccion: '',
+    dpto: '',
+    ciudad: '',
+    provincia: '',
+    codigopostal: '',
+
+    numtarjeta: '',
+    nombretarjeta: '',
+    codigodeseguridad: '',
+    fechadeexpiración: '',
+  })
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -32,37 +49,18 @@ export default function HorizontalLinearStepper({ title, image, price }: Stepper
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
-  const methods = useForm({
-    defaultValues: {
-      nombre: '',
-      apellido: '',
-      email: '',
-
-      direccion: '',
-      dpto: '',
-      ciudad: '',
-      provincia: '',
-      codigopostal: '',
-
-      numtarjeta: '',
-      nombretarjeta: '',
-      codigodeseguridad: '',
-      fechadeexpiración: '',
-    }
-  })
-
   const onSubmit = async (data: FormData) => {
-    const formData = {
+    const sentFormData = {
       customer: {
-        name: data.nombre,
-        lastname: data.apellido,
-        email: data.email,
+        name: formData.nombre,
+        lastname: formData.apellido,
+        email: formData.email,
         address: {
-          address1: data.direccion,
-          address2: data.dpto,
-          city: data.ciudad,
-          state: data.provincia,
-          zipCode: data.codigopostal,
+          address1: formData.direccion,
+          address2: formData.dpto,
+          city: formData.ciudad,
+          state: formData.provincia,
+          zipCode: formData.codigopostal,
         }
       },
       card: {
@@ -83,7 +81,7 @@ export default function HorizontalLinearStepper({ title, image, price }: Stepper
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(formData),
+      body: JSON.stringify(sentFormData),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -118,28 +116,32 @@ export default function HorizontalLinearStepper({ title, image, price }: Stepper
       </Stepper>
 
       <Typography sx={{ mt: 2, mb: 1, fontWeight: 700 }}>Paso {activeStep + 1}: {steps[activeStep]} </Typography>
-      <FormProvider {...methods}>
-        {activeStep === 0 &&
-          <FormPersonalData
-            activeStep={activeStep}
-            handleNext={handleNext}
-          />}
+      {activeStep === 0 &&
+        <FormPersonalData
+          formData={formData}
+          setFormData={setFormData}
+          activeStep={activeStep}
+          handleNext={handleNext}
+        />}
 
-        {activeStep === 1 &&
-          <DirectionData
-            activeStep={activeStep}
-            handleBack={handleBack}
-            handleNext={handleNext}
-          />}
+      {activeStep === 1 &&
+        <DirectionData
+          formData={formData}
+          setFormData={setFormData}
+          activeStep={activeStep}
+          handleBack={handleBack}
+          handleNext={handleNext}
+        />}
 
-        {activeStep === 2 &&
-          <PaymentData
-            activeStep={activeStep}
-            handleBack={handleBack}
-            handleNext={handleNext}
-            onSubmit={onSubmit}
-          />}
-      </FormProvider>
+      {activeStep === 2 &&
+        <PaymentData
+          formData={formData}
+          activeStep={activeStep}
+          handleBack={handleBack}
+          handleNext={handleNext}
+          onSubmit={onSubmit}
+        />}
+
       {error !== "" &&
         <Snackbar open={true} autoHideDuration={6000}>
           <Alert severity="error">

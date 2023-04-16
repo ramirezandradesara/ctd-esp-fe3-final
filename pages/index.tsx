@@ -37,7 +37,7 @@ const Index: NextPage<indexProps> = ({ initialComics, initialTotal }) => {
     };
 
     async function deleteCookie() {
-        await fetch(`/api/cookie`).then(data => console.log(data))
+        await fetch(`/api/cookie`)
     }
 
     useEffect(() => {

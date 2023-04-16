@@ -3,10 +3,9 @@ import { Box, IconButton, TextField, TextFieldProps } from "@mui/material";
 import React from "react";
 import { FC } from "react";
 import { useController } from "react-hook-form";
-import { Control } from "react-hook-form/dist/types";
 
 export type Props = {
-    control: Control;
+    control: any;
     name: string;
     rules?: any;
 } & TextFieldProps;

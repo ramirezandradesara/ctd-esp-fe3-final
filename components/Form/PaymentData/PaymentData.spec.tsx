@@ -4,18 +4,23 @@ import userEvent from "@testing-library/user-event";
 import { Wrapper } from "dh-marvel/test/Wrapper";
 
 describe('PaymentData.spec.tsx', () => {
+    const renderComponent = () => {
+        render(
+            <Wrapper>
+                <PaymentData
+                    handleNext={() => { }}
+                    activeStep={1}
+                    handleBack={() => { }}
+                    onSubmit={() => { }}
+                    formData={undefined}
+                />
+            </Wrapper>
+        )
+    }
+
     describe('when rendering default', () => {
         it('should render the inputs', () => {
-            render(
-                <Wrapper>
-                    <PaymentData
-                        handleNext={() => { }}
-                        activeStep={1}
-                        handleBack={() => { }}
-                        onSubmit={() => { }}
-                    />
-                </Wrapper>
-            )
+            renderComponent()
 
             const cardNumInput = screen.getByRole('textbox', { name: /Número de tarjeta */i })
             const cardNameInput = screen.getByRole('textbox', { name: /Nombre como aparece en la tarjeta/i })
@@ -31,16 +36,7 @@ describe('PaymentData.spec.tsx', () => {
 
     describe('when entering wrong values', () => {
         it("should render inputs error when doesn't fill form", async () => {
-            render(
-                <Wrapper>
-                    <PaymentData
-                        handleNext={() => { }}
-                        activeStep={1}
-                        handleBack={() => { }}
-                        onSubmit={() => { }}
-                    />
-                </Wrapper>
-            )
+            renderComponent()
 
             const nextButton = screen.getByText(/siguiente/i);
             expect(nextButton).toBeInTheDocument();
@@ -58,16 +54,7 @@ describe('PaymentData.spec.tsx', () => {
 
     describe('when entering correct values', () => {
         it("should not render inputs error", async () => {
-            render(
-                <Wrapper>
-                    <PaymentData
-                        handleNext={() => { }}
-                        activeStep={1}
-                        handleBack={() => { }}
-                        onSubmit={() => { }}
-                    />
-                </Wrapper>
-            );
+            renderComponent()
 
             const cardNumInput = screen.getByRole<HTMLInputElement>('textbox', { name: /Número de tarjeta */i })
             const cardNameInput = screen.getByRole<HTMLInputElement>('textbox', { name: /Nombre como aparece en la tarjeta/i })
@@ -92,16 +79,7 @@ describe('PaymentData.spec.tsx', () => {
 
     describe('visibility toggle', () => {
         it("should change password input type", async () => {
-            render(
-                <Wrapper>
-                    <PaymentData
-                        handleNext={() => { }}
-                        activeStep={1}
-                        handleBack={() => { }}
-                        onSubmit={() => { }}
-                    />
-                </Wrapper>
-            );
+            renderComponent()
 
             const cvvInput = screen.getByLabelText(/Código de seguridad */i)
             const visibilityButton = screen.getByLabelText("toggle password visibility");
