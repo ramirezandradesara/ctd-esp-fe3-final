@@ -54,14 +54,14 @@ const handlers = [
   }),
 
   rest.post("/api/checkout", async (req, res, ctx) => {
-    const cardNumber = req?.body?.card?.number;
-    if (cardNumber === validCard) {
-      return res(ctx.json({ ...validCardResponse }));
-    }
-    return res(
-      ctx.status(500),
-      ctx.json({ error: "error", message: "Something went wrong" })
-    );
+    // const cardNumber = req?.body.card?.number?;
+    // if (cardNumber === validCard) {
+    //   return res(ctx.json({ ...validCardResponse }));
+    // }
+    // return res(
+    //   ctx.status(500),
+    //   ctx.json({ error: "error", message: "Something went wrong" })
+    // );
   }),
 ];
 
