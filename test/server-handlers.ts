@@ -54,7 +54,7 @@ const handlers = [
   }),
 
   rest.post("/api/checkout", async (req, res, ctx) => {
-    const cardNumber = req.body.card.number;
+    const cardNumber = req?.body?.card?.number;
     if (cardNumber === validCard) {
       return res(ctx.json({ ...validCardResponse }));
     }
