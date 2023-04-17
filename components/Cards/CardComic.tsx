@@ -37,7 +37,7 @@ export default function CardComic({ title, description, image, price, id, oldPri
                     <span style={{ marginLeft: '0.5rem' }}>${price}</span>
                 </Typography>
                 <Typography variant="body1" color="text.secondary">
-                    {description === ''
+                    {!description
                         ? "Sin descripción disponible"
                         : description
                     }

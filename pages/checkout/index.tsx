@@ -14,14 +14,15 @@ function Checkout() {
   const [comicData, setComicData] = useState<any>();
 
   useEffect(() => {
-    const id = parseInt(comic as string);
-
     if (comic) {
+      const id = parseInt(comic as string);
       getComic(id).then((data: any) => {
         setComicData(data);
       });
+    } else {
+      router.push('/');
     }
-  }, [comic]);
+  }, [comic, router]);
 
   return (
     <>
@@ -38,7 +39,7 @@ function Checkout() {
             >
               <CardCheckout
                 title={comicData?.title}
-                image={`${comicData?.images[0]?.path}.${comicData?.images[0]?.extension}`}
+                image={`${comicData?.thumbnail?.path}.${comicData?.thumbnail?.extension}`}
                 price={comicData?.price}
                 id={comicData?.id}
               />

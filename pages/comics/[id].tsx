@@ -17,7 +17,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   return {
     paths,
-    fallback: false // cualquier pagina que no se especifique en los paths va a arrojar un 404
+    fallback: 'blocking' 
   }
 };
 
@@ -30,7 +30,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     props: {
       comic,
       characters
-    }
+    },
+    revalidate: 10,
   }
 };
 
@@ -45,13 +46,13 @@ function ComicDetails({ comic, characters }: { comic: any, characters: any }) {
         <Box sx={{ marginBottom: '1rem' }}>
           <BodySingle title='Detalle cómic'>
             <CardComic
-              title={comic.title}
-              description={comic.description}
-              image={`${comic?.images[0]?.path}.${comic?.images[0]?.extension}`}
-              id={comic.id}
-              price={comic.price}
-              oldPrice={comic.oldPrice}
-              stock={comic.stock}
+              title={comic?.title}
+              description={comic?.description}
+              image={`${comic?.thumbnail?.path}.${comic?.thumbnail?.extension}`}
+              id={comic?.id}
+              price={comic?.price}
+              oldPrice={comic?.oldPrice}
+              stock={comic?.stock}
               characters={characters}
             />
           </BodySingle>

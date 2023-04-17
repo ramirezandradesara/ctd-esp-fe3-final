@@ -26,7 +26,7 @@ export default function CharactersAccordion({ title, characters }: { title: stri
                     </Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                    {characters.length === 0
+                    {characters?.length === 0
                         ?
                         <Typography>
                             Información no disponible
@@ -34,7 +34,7 @@ export default function CharactersAccordion({ title, characters }: { title: stri
                         :
                         <>
                             {
-                                characters.map((character: any, index: number) => {
+                                characters?.map((character: any, index: number) => {
                                     return (
                                         <Typography key={index}>
                                             <Link href={`/personajes/${character.id}`}>
