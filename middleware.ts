@@ -9,8 +9,10 @@ export const middleware = async (req: NextRequest) => {
     ? "http://localhost:3000"
     : "https://my-marvel-store.vercel.app/";
 
-  if (url.includes("confirmacion-compra" || !access)) {
-    return NextResponse.redirect(server);
+  if (url.includes("confirmacion-compra")) {
+    if(!access){
+      return NextResponse.redirect(server);
+    }
   }
 
 };
